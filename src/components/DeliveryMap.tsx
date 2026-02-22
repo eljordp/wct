@@ -2,7 +2,7 @@ const CITIES: { name: string; x: number; y: number; major?: boolean }[] = [
   { name: 'Santa Barbara', x: 85, y: 52, major: true },
   { name: 'Ventura', x: 145, y: 110 },
   { name: 'Oxnard', x: 132, y: 140 },
-  { name: 'Thousand Oaks', x: 205, y: 118 },
+  { name: 'Thousand Oaks', x: 210, y: 160 },
   { name: 'Malibu', x: 195, y: 195 },
   { name: 'Los Angeles', x: 275, y: 242, major: true },
   { name: 'Long Beach', x: 310, y: 320 },

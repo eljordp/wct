@@ -44,7 +44,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed mb-4">
-              California's trusted wholesale distributor of premium THCa cannabis products. Serving retailers and dispensaries nationwide.
+              California's premium THCa wholesale distributor. Delivering from Santa Barbara to La Jolla.
             </p>
             <div className="flex gap-3">
               <a href="#" className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
@@ -103,7 +103,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-600">
-            &copy; 2025 West Coast Terpz Wholesale. All rights reserved.
+            &copy; 2026 West Coast Terpz Wholesale. All rights reserved.
           </p>
           <p className="text-xs text-gray-600 text-center leading-relaxed max-w-xl">
             All products comply with the 2018 Farm Bill. THCa products contain less than 0.3% Delta-9 THC. Must be 21+ to purchase.

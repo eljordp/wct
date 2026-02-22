@@ -21,7 +21,7 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
       transition={{ delay: index * 0.04 }}
       className="group"
     >
-      <div className="relative rounded-2xl overflow-hidden bg-[#141414] border border-white/8 hover:border-white/15 transition-all duration-300 h-full flex flex-col">
+      <div className="shimmer glow-border relative rounded-2xl overflow-hidden bg-[#0e0e0e] border border-white/[0.06] hover:border-white/[0.12] transition-all duration-300 h-full flex flex-col">
         {/* Badges */}
         <div className="absolute top-3 left-3 z-10 flex gap-2">
           {product.badge && (

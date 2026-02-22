@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-background: #060606;
+  --color-background: #050505;
   --color-foreground: #f5f5f5;
   --color-card: #111111;
   --color-card-foreground: #f5f5f5;
@@ -10,12 +10,10 @@
   --color-primary-dim: rgba(57, 255, 20, 0.12);
   --color-muted: #a3a3a3;
   --color-border: rgba(255, 255, 255, 0.06);
-  --color-surface: #0f0f0f;
+  --color-surface: #0a0a0a;
   --color-surface-hover: #1a1a1a;
-  --color-indica: #8B5CF6;
-  --color-sativa: #F59E0B;
-  --color-hybrid: #10B981;
   --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
 }
 
 * { border-color: var(--color-border); }
@@ -30,50 +28,53 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.04em;
+}
+h4, h5, h6 {
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
-/* Neon glow on text */
+/* ── Neon text glow ── */
 .text-glow {
   text-shadow:
-    0 0 10px rgba(57, 255, 20, 0.6),
-    0 0 30px rgba(57, 255, 20, 0.3),
-    0 0 60px rgba(57, 255, 20, 0.1);
+    0 0 20px rgba(57, 255, 20, 0.5),
+    0 0 60px rgba(57, 255, 20, 0.2),
+    0 0 100px rgba(57, 255, 20, 0.08);
 }
 
-/* Animated gradient orb */
+/* ── Animated gradient orbs ── */
 @keyframes float {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.7; }
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  33% { transform: translate(30px, -20px) scale(1.1); opacity: 0.65; }
+  66% { transform: translate(-20px, 15px) scale(0.95); opacity: 0.55; }
 }
-.orb {
-  animation: float 8s ease-in-out infinite;
-}
+.orb { animation: float 12s ease-in-out infinite; }
 
-/* Grain texture overlay */
+/* ── Grain texture ── */
 .grain::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px;
 }
 
-/* Glass card */
+/* ── Glass card ── */
 .glass {
   background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Subtle shimmer on hover */
+/* ── Shimmer sweep ── */
 .shimmer {
   position: relative;
   overflow: hidden;
@@ -82,15 +83,17 @@ h1, h2, h3, h4, h5, h6 {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(57, 255, 20, 0.03) 45%, rgba(57, 255, 20, 0.06) 50%, rgba(57, 255, 20, 0.03) 55%, transparent 60%);
+  background: linear-gradient(105deg, transparent 35%, rgba(57, 255, 20, 0.04) 42%, rgba(57, 255, 20, 0.08) 50%, rgba(57, 255, 20, 0.04) 58%, transparent 65%);
   transform: translateX(-100%);
-  transition: transform 0.6s ease;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+  pointer-events: none;
 }
 .shimmer:hover::before {
   transform: translateX(100%);
 }
 
-/* Smooth gradient border glow */
+/* ── Glow border on hover ── */
 .glow-border {
   position: relative;
 }
@@ -99,29 +102,76 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(57, 255, 20, 0.15), transparent 40%, transparent 60%, rgba(57, 255, 20, 0.08));
+  background: linear-gradient(135deg, rgba(57, 255, 20, 0.2), transparent 30%, transparent 70%, rgba(57, 255, 20, 0.1));
   z-index: -1;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.4s;
 }
 .glow-border:hover::after {
   opacity: 1;
 }
 
-/* Pulse dot */
+/* ── Pulse dot ── */
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.5); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(57, 255, 20, 0.5); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(57, 255, 20, 0); }
 }
 .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 5px; }
+/* ── Animated mesh gradient ── */
+@keyframes mesh {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.mesh-gradient {
+  background: linear-gradient(-45deg, #050505, #0a1a05, #050505, #051005);
+  background-size: 400% 400%;
+  animation: mesh 15s ease infinite;
+}
+
+/* ── Marquee scroll ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee { animation: marquee 30s linear infinite; }
+
+/* ── Card hover lift ── */
+.card-hover {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(57, 255, 20, 0.08);
+}
+
+/* ── Gradient text ── */
+.gradient-text {
+  background: linear-gradient(135deg, #39FF14, #39FF14 40%, #7dff5c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Neon line ── */
+.neon-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.4), transparent);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: #39FF14; }
 
 ::selection {
   background-color: rgba(57, 255, 20, 0.25);
   color: white;
+}
+
+/* ── Number counter ── */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Minus, Plus, Trash2, ShoppingCart, ArrowRight, ArrowLeft, Truck } from 'lucide-react'
+import { Minus, Plus, Trash2, ShoppingCart, ArrowRight, ArrowLeft, AlertCircle } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 import { TERPENE_PROFILES } from '@/data/products'
 
 export default function CartPage() {
   const { items, updateQuantity, removeFromCart, total, itemCount } = useCart()
 
-  const FREE_DELIVERY = 75
+  const MIN_ORDER = 150
 
   if (items.length === 0) {
     return (
@@ -60,7 +60,7 @@ export default function CartPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="p-5 rounded-xl bg-[#0e0e0e] border border-white/[0.06]"
+                className="p-5 rounded-xl bg-[#0a0a0a] border border-white/[0.06]"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -111,12 +111,12 @@ export default function CartPage() {
         </div>
 
         {/* Summary */}
-        <div className="p-6 rounded-2xl bg-[#0e0e0e] border border-white/[0.06]">
-          {total < FREE_DELIVERY && (
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-[#39FF14]/[0.06] border border-[#39FF14]/20 mb-4">
-              <Truck className="w-4 h-4 text-[#39FF14] shrink-0" />
-              <p className="text-xs text-[#39FF14]/80">
-                Add ${(FREE_DELIVERY - total).toFixed(2)} more for free delivery!
+        <div className="p-6 rounded-2xl bg-[#0a0a0a] border border-white/[0.06]">
+          {total < MIN_ORDER && (
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-500/[0.08] border border-yellow-500/20 mb-4">
+              <AlertCircle className="w-4 h-4 text-yellow-500 shrink-0" />
+              <p className="text-xs text-yellow-500">
+                Minimum order is ${MIN_ORDER}. Add ${(MIN_ORDER - total).toFixed(2)} more to proceed.
               </p>
             </div>
           )}
@@ -128,23 +128,26 @@ export default function CartPage() {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-gray-400 text-sm">Delivery</span>
-              <span className={`text-sm font-medium ${total >= FREE_DELIVERY ? 'text-[#39FF14]' : 'text-gray-400'}`}>
-                {total >= FREE_DELIVERY ? 'FREE' : '$5.00'}
-              </span>
+              <span className="text-sm font-medium text-[#39FF14]">FREE</span>
             </div>
           </div>
 
           <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
             <span className="font-bold text-lg">Total</span>
-            <span className="font-bold text-lg text-[#39FF14]">
-              ${(total + (total >= FREE_DELIVERY ? 0 : 5)).toFixed(2)}
-            </span>
+            <span className="font-bold text-lg text-[#39FF14]">${total.toFixed(2)}</span>
           </div>
 
-          <button className="w-full mt-6 py-3.5 bg-[#39FF14] text-black font-bold rounded-xl hover:brightness-110 transition-all text-sm">
-            Proceed to Checkout
+          <button
+            disabled={total < MIN_ORDER}
+            className={`w-full mt-6 py-3.5 font-bold rounded-xl transition-all text-sm ${
+              total >= MIN_ORDER
+                ? 'bg-[#39FF14] text-black hover:brightness-110 hover:shadow-[0_0_30px_rgba(57,255,20,0.2)]'
+                : 'bg-gray-800 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            {total >= MIN_ORDER ? 'Proceed to Checkout' : `$${(MIN_ORDER - total).toFixed(2)} more to reach minimum`}
           </button>
-          <p className="text-xs text-gray-500 text-center mt-3">
+          <p className="text-xs text-gray-600 text-center mt-3">
             Must be 21+ with valid ID at delivery &bull; Santa Barbara to La Jolla
           </p>
         </div>

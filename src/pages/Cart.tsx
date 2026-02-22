@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Minus, Plus, Trash2, ShoppingCart, ArrowRight, ArrowLeft, Package, AlertCircle } from 'lucide-react'
+import { Minus, Plus, Trash2, ShoppingCart, ArrowRight, ArrowLeft, Truck } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
-import { STRAIN_INFO } from '@/data/products'
+import { TERPENE_PROFILES } from '@/data/products'
 
 export default function CartPage() {
-  const { items, updateQuantity, removeFromCart, total, itemCount, getUnitPrice } = useCart()
+  const { items, updateQuantity, removeFromCart, total, itemCount } = useCart()
 
-  const MIN_ORDER_TOTAL = 150
+  const FREE_DELIVERY = 75
 
   if (items.length === 0) {
     return (
@@ -18,13 +18,13 @@ export default function CartPage() {
           className="text-center"
         >
           <ShoppingCart className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2">Your wholesale cart is empty</h2>
-          <p className="text-gray-400 mb-6">Browse our catalog to start building your order</p>
+          <h2 className="text-2xl font-bold mb-2">Your cart is empty</h2>
+          <p className="text-gray-400 mb-6">Browse our menu to find something you'll love</p>
           <Link
-            to="/shop"
+            to="/menu"
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#39FF14] text-black font-bold rounded-xl hover:brightness-110 transition-all text-sm"
           >
-            Shop Wholesale
+            Browse Menu
             <ArrowRight className="w-4 h-4" />
           </Link>
         </motion.div>
@@ -33,27 +33,26 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen pt-8 pb-16 px-4">
+    <div className="min-h-screen pt-8 pb-16 px-4 grain">
       <div className="max-w-4xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <Link to="/shop" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#39FF14] transition-colors mb-6">
+          <Link to="/menu" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#39FF14] transition-colors mb-6">
             <ArrowLeft className="w-4 h-4" />
-            Back to Catalog
+            Back to Menu
           </Link>
 
           <div className="flex items-center gap-3 mb-2">
-            <Package className="w-6 h-6 text-[#39FF14]" />
-            <h1 className="text-3xl font-bold">Wholesale Order</h1>
+            <ShoppingCart className="w-6 h-6 text-[#39FF14]" />
+            <h1 className="text-3xl font-bold">Your Cart</h1>
           </div>
-          <p className="text-gray-400 mb-8">{itemCount} unit{itemCount !== 1 ? 's' : ''} across {items.length} product{items.length !== 1 ? 's' : ''}</p>
+          <p className="text-gray-400 mb-8">{itemCount} item{itemCount !== 1 ? 's' : ''}</p>
         </motion.div>
 
         {/* Items */}
         <div className="space-y-4 mb-8">
           {items.map((item, i) => {
-            const strainInfo = STRAIN_INFO[item.product.strain]
-            const unitPrice = getUnitPrice(item.product, item.quantity)
-            const lineTotal = unitPrice * item.quantity
+            const profileInfo = TERPENE_PROFILES[item.product.terpene_profile]
+            const lineTotal = item.product.price * item.quantity
 
             return (
               <motion.div
@@ -61,7 +60,7 @@ export default function CartPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="p-5 rounded-xl bg-[#141414] border border-white/8"
+                className="p-5 rounded-xl bg-[#0e0e0e] border border-white/[0.06]"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -69,59 +68,32 @@ export default function CartPage() {
                       <h3 className="font-semibold text-sm">{item.product.name}</h3>
                       <span
                         className="text-[10px] px-2 py-0.5 rounded-full border"
-                        style={{ color: strainInfo.color, borderColor: strainInfo.color, backgroundColor: `${strainInfo.color}15` }}
+                        style={{ color: profileInfo.color, borderColor: `${profileInfo.color}40`, backgroundColor: `${profileInfo.color}15` }}
                       >
-                        {strainInfo.label}
+                        {profileInfo.label}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-500">THC {item.product.thc} &bull; Min. order: {item.product.minOrder} units</p>
+                    <p className="text-xs text-gray-500">
+                      THC {item.product.thc} &bull; ${item.product.price.toFixed(2)} each
+                    </p>
                   </div>
                   <div className="text-right">
                     <span className="text-[#39FF14] font-bold">${lineTotal.toFixed(2)}</span>
-                    <p className="text-xs text-gray-500">${unitPrice.toFixed(2)}/unit</p>
                   </div>
                 </div>
 
-                {/* Tier info */}
-                <div className="grid grid-cols-3 gap-2 mb-3">
-                  {item.product.wholesale.map(tier => {
-                    const isActive = unitPrice === tier.price
-                    return (
-                      <div
-                        key={tier.minQty}
-                        className={`text-center py-1.5 rounded-lg border text-xs ${
-                          isActive
-                            ? 'border-[#39FF14]/40 bg-[#39FF14]/10 text-[#39FF14]'
-                            : 'border-white/5 bg-white/3 text-gray-500'
-                        }`}
-                      >
-                        <div className="font-medium">{tier.label}</div>
-                        <div className="font-bold">${tier.price}</div>
-                      </div>
-                    )
-                  })}
-                </div>
-
-                <div className="flex items-center justify-between pt-3 border-t border-white/8">
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]">
                   <div className="flex items-center gap-3">
                     <button
-                      onClick={() => updateQuantity(item.product.id, item.quantity - item.product.minOrder)}
-                      className="w-8 h-8 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                      onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                      className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.08] transition-all"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
-                    <input
-                      type="number"
-                      value={item.quantity}
-                      onChange={e => {
-                        const val = parseInt(e.target.value)
-                        if (!isNaN(val) && val >= 0) updateQuantity(item.product.id, val)
-                      }}
-                      className="w-20 text-center text-sm font-medium bg-white/5 border border-white/8 rounded-lg py-1.5 text-white focus:outline-none focus:border-[#39FF14]/50"
-                    />
+                    <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
                     <button
-                      onClick={() => updateQuantity(item.product.id, item.quantity + item.product.minOrder)}
-                      className="w-8 h-8 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                      onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                      className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.08] transition-all"
                     >
                       <Plus className="w-3 h-3" />
                     </button>
@@ -139,50 +111,42 @@ export default function CartPage() {
         </div>
 
         {/* Summary */}
-        <div className="p-6 rounded-2xl bg-gradient-to-br from-[#141414] to-[#1a1a1a] border border-white/8">
-          {total < MIN_ORDER_TOTAL && (
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20 mb-4">
-              <AlertCircle className="w-4 h-4 text-yellow-500 shrink-0" />
-              <p className="text-xs text-yellow-500">
-                Minimum order is ${MIN_ORDER_TOTAL}. Add ${(MIN_ORDER_TOTAL - total).toFixed(2)} more to proceed.
+        <div className="p-6 rounded-2xl bg-[#0e0e0e] border border-white/[0.06]">
+          {total < FREE_DELIVERY && (
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-[#39FF14]/[0.06] border border-[#39FF14]/20 mb-4">
+              <Truck className="w-4 h-4 text-[#39FF14] shrink-0" />
+              <p className="text-xs text-[#39FF14]/80">
+                Add ${(FREE_DELIVERY - total).toFixed(2)} more for free delivery!
               </p>
             </div>
           )}
 
           <div className="space-y-3 mb-4">
             <div className="flex items-center justify-between">
-              <span className="text-gray-400 text-sm">Subtotal ({itemCount} units)</span>
+              <span className="text-gray-400 text-sm">Subtotal ({itemCount} items)</span>
               <span className="font-semibold">${total.toFixed(2)}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-gray-400 text-sm">Shipping</span>
-              <span className={`text-sm font-medium ${total >= 500 ? 'text-[#39FF14]' : 'text-gray-400'}`}>
-                {total >= 500 ? 'FREE' : 'Calculated at checkout'}
+              <span className="text-gray-400 text-sm">Delivery</span>
+              <span className={`text-sm font-medium ${total >= FREE_DELIVERY ? 'text-[#39FF14]' : 'text-gray-400'}`}>
+                {total >= FREE_DELIVERY ? 'FREE' : '$5.00'}
               </span>
             </div>
-            {total < 500 && total >= MIN_ORDER_TOTAL && (
-              <p className="text-xs text-gray-500">
-                Add ${(500 - total).toFixed(2)} more for free shipping
-              </p>
-            )}
           </div>
 
-          <div className="flex items-center justify-between pt-4 border-t border-white/8">
-            <span className="font-bold text-lg">Estimated Total</span>
-            <span className="font-bold text-lg text-[#39FF14]">${total.toFixed(2)}</span>
+          <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
+            <span className="font-bold text-lg">Total</span>
+            <span className="font-bold text-lg text-[#39FF14]">
+              ${(total + (total >= FREE_DELIVERY ? 0 : 5)).toFixed(2)}
+            </span>
           </div>
 
-          <button
-            disabled={total < MIN_ORDER_TOTAL}
-            className={`w-full mt-6 py-3.5 font-bold rounded-xl transition-all text-sm ${
-              total >= MIN_ORDER_TOTAL
-                ? 'bg-[#39FF14] text-black hover:brightness-110'
-                : 'bg-gray-700 text-gray-400 cursor-not-allowed'
-            }`}
-          >
-            Request Quote / Checkout
+          <button className="w-full mt-6 py-3.5 bg-[#39FF14] text-black font-bold rounded-xl hover:brightness-110 transition-all text-sm">
+            Proceed to Checkout
           </button>
-          <p className="text-xs text-gray-500 text-center mt-3">Wholesale orders only &bull; Net 30 available for approved accounts</p>
+          <p className="text-xs text-gray-500 text-center mt-3">
+            Must be 21+ with valid ID at delivery &bull; Santa Barbara to La Jolla
+          </p>
         </div>
       </div>
     </div>

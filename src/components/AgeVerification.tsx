@@ -42,7 +42,7 @@ export default function AgeVerification({ isOpen, onVerify, onDeny }: Props) {
                 />
 
                 <h2 className="text-2xl font-bold mb-0.5">West Coast Terpz</h2>
-                <p className="text-[10px] font-semibold text-[#39FF14]/70 uppercase tracking-[0.25em] mb-6">Premium Wholesale</p>
+                <p className="text-[10px] font-semibold text-[#39FF14]/70 uppercase tracking-[0.25em] mb-6">Premium Delivery</p>
 
                 <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent mb-6" />
 

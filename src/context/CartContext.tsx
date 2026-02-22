@@ -14,6 +14,7 @@ interface CartContextType {
   clearCart: () => void
   total: number
   itemCount: number
+  getUnitPrice: (product: Product, quantity: number) => number
 }
 
 const CartContext = createContext<CartContextType | null>(null)
@@ -21,15 +22,23 @@ const CartContext = createContext<CartContextType | null>(null)
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
 
+  const getUnitPrice = (product: Product, quantity: number): number => {
+    const tiers = [...product.wholesale].sort((a, b) => b.minQty - a.minQty)
+    for (const tier of tiers) {
+      if (quantity >= tier.minQty) return tier.price
+    }
+    return product.wholesale[0].price
+  }
+
   const addToCart = (product: Product) => {
     setItems(prev => {
       const existing = prev.find(i => i.product.id === product.id)
       if (existing) {
         return prev.map(i =>
-          i.product.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
+          i.product.id === product.id ? { ...i, quantity: i.quantity + product.minOrder } : i
         )
       }
-      return [...prev, { product, quantity: 1 }]
+      return [...prev, { product, quantity: product.minOrder }]
     })
   }
 
@@ -49,11 +58,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = () => setItems([])
 
-  const total = items.reduce((sum, i) => sum + i.product.price * i.quantity, 0)
+  const total = items.reduce((sum, i) => sum + getUnitPrice(i.product, i.quantity) * i.quantity, 0)
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0)
 
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, clearCart, total, itemCount }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, clearCart, total, itemCount, getUnitPrice }}>
       {children}
     </CartContext.Provider>
   )

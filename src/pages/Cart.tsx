@@ -1,13 +1,25 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Minus, Plus, Trash2, ShoppingCart, ArrowRight, ArrowLeft, AlertCircle } from 'lucide-react'
-import { useCart } from '@/context/CartContext'
-import { TERPENE_PROFILES } from '@/data/products'
+import { useCart, getItemPrice } from '@/context/CartContext'
+import { TERPENE_PROFILES, WEIGHT_OPTIONS } from '@/data/products'
 
 export default function CartPage() {
   const { items, updateQuantity, removeFromCart, total, itemCount } = useCart()
 
   const MIN_ORDER = 150
+
+  const getItemKey = (item: typeof items[0]) => {
+    const parts = [item.product.id]
+    if (item.flavor) parts.push(item.flavor)
+    if (item.weight) parts.push(item.weight)
+    return parts.join('-')
+  }
+
+  const getWeightLabel = (weight?: string) => {
+    if (!weight) return null
+    return WEIGHT_OPTIONS.find(w => w.value === weight)
+  }
 
   if (items.length === 0) {
     return (
@@ -52,11 +64,14 @@ export default function CartPage() {
         <div className="space-y-4 mb-8">
           {items.map((item, i) => {
             const profileInfo = TERPENE_PROFILES[item.product.terpene_profile]
-            const lineTotal = item.product.price * item.quantity
+            const unitPrice = getItemPrice(item)
+            const lineTotal = unitPrice * item.quantity
+            const key = getItemKey(item)
+            const weightInfo = getWeightLabel(item.weight)
 
             return (
               <motion.div
-                key={item.product.id}
+                key={key}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
@@ -64,17 +79,25 @@ export default function CartPage() {
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-semibold text-sm">{item.product.name}</h3>
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      <h3 className="font-semibold text-sm">
+                        {item.product.name}
+                        {item.flavor && <span className="text-gray-400 font-normal"> — {item.flavor}</span>}
+                      </h3>
                       <span
                         className="text-[10px] px-2 py-0.5 rounded-full border"
                         style={{ color: profileInfo.color, borderColor: `${profileInfo.color}40`, backgroundColor: `${profileInfo.color}15` }}
                       >
                         {profileInfo.label}
                       </span>
+                      {weightInfo && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full border border-[#39FF14]/30 bg-[#39FF14]/10 text-[#39FF14] font-semibold">
+                          {weightInfo.label}
+                        </span>
+                      )}
                     </div>
                     <p className="text-xs text-gray-500">
-                      THC {item.product.thc} &bull; ${item.product.price.toFixed(2)} each
+                      THC {item.product.thc} &bull; ${unitPrice.toFixed(2)} each
                     </p>
                   </div>
                   <div className="text-right">
@@ -85,21 +108,21 @@ export default function CartPage() {
                 <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]">
                   <div className="flex items-center gap-3">
                     <button
-                      onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                      onClick={() => updateQuantity(key, item.quantity - 1)}
                       className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.08] transition-all"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
                     <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
                     <button
-                      onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                      onClick={() => updateQuantity(key, item.quantity + 1)}
                       className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.08] transition-all"
                     >
                       <Plus className="w-3 h-3" />
                     </button>
                   </div>
                   <button
-                    onClick={() => removeFromCart(item.product.id)}
+                    onClick={() => removeFromCart(key)}
                     className="p-2 text-gray-500 hover:text-red-400 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />

@@ -1,180 +1,181 @@
-import { motion } from 'framer-motion'
-
 const CITIES: { name: string; x: number; y: number; major?: boolean }[] = [
-  { name: 'Santa Barbara', x: 78, y: 58, major: true },
-  { name: 'Ventura', x: 138, y: 118 },
-  { name: 'Oxnard', x: 148, y: 148 },
-  { name: 'Thousand Oaks', x: 200, y: 125 },
-  { name: 'Malibu', x: 215, y: 208 },
-  { name: 'Los Angeles', x: 278, y: 258, major: true },
-  { name: 'Long Beach', x: 318, y: 338 },
-  { name: 'Anaheim', x: 365, y: 315 },
-  { name: 'Irvine', x: 370, y: 378 },
-  { name: 'Newport Beach', x: 348, y: 398 },
-  { name: 'Oceanside', x: 375, y: 510 },
-  { name: 'Carlsbad', x: 382, y: 548 },
-  { name: 'Encinitas', x: 388, y: 580 },
-  { name: 'La Jolla', x: 395, y: 638, major: true },
+  { name: 'Santa Barbara', x: 85, y: 52, major: true },
+  { name: 'Ventura', x: 145, y: 110 },
+  { name: 'Oxnard', x: 132, y: 140 },
+  { name: 'Thousand Oaks', x: 205, y: 118 },
+  { name: 'Malibu', x: 195, y: 195 },
+  { name: 'Los Angeles', x: 275, y: 242, major: true },
+  { name: 'Long Beach', x: 310, y: 320 },
+  { name: 'Anaheim', x: 358, y: 305 },
+  { name: 'Irvine', x: 365, y: 370 },
+  { name: 'Newport Beach', x: 342, y: 392 },
+  { name: 'Oceanside', x: 372, y: 505 },
+  { name: 'Carlsbad', x: 378, y: 540 },
+  { name: 'Encinitas', x: 384, y: 572 },
+  { name: 'La Jolla', x: 392, y: 630, major: true },
 ]
 
-const COAST_PATH = 'M 30,45 C 50,42 65,48 78,58 C 95,70 120,100 138,118 C 150,132 152,142 165,168 C 178,194 200,205 215,218 C 235,235 258,248 278,265 C 295,280 310,310 318,338 C 325,358 335,378 348,398 C 358,415 365,450 372,480 C 378,505 380,530 382,548 C 385,568 388,600 395,638 C 398,655 400,670 402,690'
+// Simplified SoCal coastline path — SB to La Jolla
+const COAST_PATH = 'M 35,38 C 55,35 70,42 85,52 C 100,62 125,90 145,110 C 155,122 140,135 148,158 C 156,178 180,192 195,205 C 215,222 248,238 270,252 C 288,264 298,290 310,320 C 318,340 330,370 342,392 C 352,412 360,448 368,478 C 374,500 378,525 382,548 C 385,565 388,595 392,630 C 395,648 397,660 398,675'
+
+// Inland boundary of delivery zone
+const INLAND_PATH = 'M 35,38 C 90,20 170,60 220,95 C 270,130 330,180 370,230 C 400,270 420,330 430,400 C 440,470 440,550 430,630 C 425,660 420,675 398,675'
 
 export default function DeliveryMap() {
   return (
-    <div className="relative w-full aspect-[5/7] max-w-[480px] mx-auto">
-      <svg viewBox="0 0 500 750" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+    <div className="relative w-full aspect-[5/7] max-w-[500px] mx-auto">
+      <svg viewBox="0 0 500 730" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          {/* Glow filter for the coast line */}
           <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="8" result="blur" />
+            <feGaussianBlur stdDeviation="6" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          {/* Bigger glow for major cities */}
-          <filter id="cityGlow" x="-200%" y="-200%" width="500%" height="500%">
-            <feGaussianBlur stdDeviation="12" result="blur" />
+          <filter id="bigGlow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="15" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          {/* Delivery zone gradient */}
-          <linearGradient id="zoneGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#39FF14" stopOpacity="0.06" />
-            <stop offset="50%" stopColor="#39FF14" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="#39FF14" stopOpacity="0.04" />
+          <linearGradient id="zoneGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#39FF14" stopOpacity="0.1" />
+            <stop offset="40%" stopColor="#39FF14" stopOpacity="0.06" />
+            <stop offset="100%" stopColor="#39FF14" stopOpacity="0.02" />
           </linearGradient>
-          {/* Coast line gradient */}
           <linearGradient id="coastGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#39FF14" stopOpacity="0.8" />
+            <stop offset="0%" stopColor="#39FF14" stopOpacity="0.9" />
             <stop offset="50%" stopColor="#39FF14" stopOpacity="1" />
-            <stop offset="100%" stopColor="#39FF14" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#39FF14" stopOpacity="0.7" />
           </linearGradient>
           <radialGradient id="dotGlow">
-            <stop offset="0%" stopColor="#39FF14" stopOpacity="0.6" />
+            <stop offset="0%" stopColor="#39FF14" stopOpacity="0.5" />
             <stop offset="100%" stopColor="#39FF14" stopOpacity="0" />
           </radialGradient>
+          {/* Animated dash for route */}
+          <linearGradient id="routeGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#39FF14" stopOpacity="0.3" />
+            <stop offset="50%" stopColor="#39FF14" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#39FF14" stopOpacity="0.3" />
+          </linearGradient>
         </defs>
 
-        {/* Background grid dots */}
-        {Array.from({ length: 20 }).map((_, row) =>
-          Array.from({ length: 15 }).map((_, col) => (
-            <circle
-              key={`${row}-${col}`}
-              cx={col * 35 + 15}
-              cy={row * 40 + 10}
-              r="0.5"
-              fill="rgba(255,255,255,0.06)"
-            />
-          ))
-        )}
+        {/* Background grid */}
+        <g opacity="0.04">
+          {Array.from({ length: 19 }).map((_, row) =>
+            Array.from({ length: 14 }).map((_, col) => (
+              <circle key={`${row}-${col}`} cx={col * 38 + 12} cy={row * 40 + 10} r="0.6" fill="white" />
+            ))
+          )}
+        </g>
 
-        {/* Delivery zone area — wide band along coast */}
+        {/* Delivery zone fill */}
         <path
-          d="M 10,25 C 30,22 45,28 78,58 C 95,70 120,100 138,118 C 150,132 152,142 165,168 C 178,194 200,205 215,218 C 235,235 258,248 278,265 C 295,280 310,310 318,338 C 325,358 335,378 348,398 C 358,415 365,450 372,480 C 378,505 380,530 382,548 C 385,568 388,600 395,638 C 398,655 400,670 402,710 L 480,710 L 480,25 Z"
+          d={`${COAST_PATH} L 398,675 ${INLAND_PATH.replace('M', 'L').split(' ').reverse().join(' ')} Z`}
           fill="url(#zoneGrad)"
+          opacity="0.8"
         />
 
-        {/* Coast line — outer glow */}
-        <path
-          d={COAST_PATH}
-          fill="none"
-          stroke="#39FF14"
-          strokeWidth="6"
-          strokeLinecap="round"
-          opacity="0.15"
-          filter="url(#glow)"
-        />
-        {/* Coast line — main */}
-        <path
-          d={COAST_PATH}
-          fill="none"
-          stroke="url(#coastGrad)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeDasharray="0"
-        />
-        {/* Coast line — bright core */}
-        <path
-          d={COAST_PATH}
-          fill="none"
-          stroke="#39FF14"
-          strokeWidth="1"
-          strokeLinecap="round"
-          opacity="0.9"
-        />
+        {/* Zone boundary — inland dashed */}
+        <path d={INLAND_PATH} fill="none" stroke="#39FF14" strokeWidth="0.8" strokeDasharray="6 4" opacity="0.15" />
+
+        {/* Coast — outer glow */}
+        <path d={COAST_PATH} fill="none" stroke="#39FF14" strokeWidth="8" strokeLinecap="round" opacity="0.08" filter="url(#glow)" />
+        {/* Coast — mid glow */}
+        <path d={COAST_PATH} fill="none" stroke="#39FF14" strokeWidth="4" strokeLinecap="round" opacity="0.15" />
+        {/* Coast — main line */}
+        <path d={COAST_PATH} fill="none" stroke="url(#coastGrad)" strokeWidth="2" strokeLinecap="round" />
+        {/* Coast — bright core */}
+        <path d={COAST_PATH} fill="none" stroke="#39FF14" strokeWidth="0.8" strokeLinecap="round" opacity="0.95" />
+
+        {/* Animated route dashes */}
+        <path d={COAST_PATH} fill="none" stroke="#39FF14" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="4 12" opacity="0.4">
+          <animate attributeName="stroke-dashoffset" from="0" to="-48" dur="3s" repeatCount="indefinite" />
+        </path>
 
         {/* City markers */}
-        {CITIES.map((city, i) => (
-          <g key={city.name}>
-            {/* Ambient glow */}
-            <circle
-              cx={city.x}
-              cy={city.y}
-              r={city.major ? 20 : 12}
-              fill="url(#dotGlow)"
-              opacity={city.major ? 0.5 : 0.3}
-            />
-            {/* Outer ring for major cities */}
-            {city.major && (
-              <circle
-                cx={city.x}
-                cy={city.y}
-                r="8"
-                fill="none"
-                stroke="#39FF14"
-                strokeWidth="0.5"
-                opacity="0.3"
-              />
-            )}
-            {/* Dot */}
-            <circle
-              cx={city.x}
-              cy={city.y}
-              r={city.major ? 4 : 2.5}
-              fill="#39FF14"
-              opacity={city.major ? 1 : 0.7}
-            />
-            {/* Label */}
-            <text
-              x={city.x + (city.x > 300 ? -8 : 12)}
-              y={city.y + (city.major ? 0 : 1)}
-              textAnchor={city.x > 300 ? 'end' : 'start'}
-              dominantBaseline="middle"
-              fill={city.major ? '#ffffff' : 'rgba(255,255,255,0.45)'}
-              fontSize={city.major ? '11' : '9'}
-              fontFamily="'Space Grotesk', 'Inter', sans-serif"
-              fontWeight={city.major ? '600' : '400'}
-              letterSpacing="0.02em"
-            >
-              {city.name}
-            </text>
-          </g>
-        ))}
+        {CITIES.map((city) => {
+          const isLeft = city.x < 280
+          return (
+            <g key={city.name}>
+              {/* Ambient glow */}
+              <circle cx={city.x} cy={city.y} r={city.major ? 24 : 14} fill="url(#dotGlow)" opacity={city.major ? 0.6 : 0.3} />
+
+              {/* Pulse ring for major cities */}
+              {city.major && (
+                <circle cx={city.x} cy={city.y} r="10" fill="none" stroke="#39FF14" strokeWidth="0.5" opacity="0.25">
+                  <animate attributeName="r" from="6" to="16" dur="2.5s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" from="0.4" to="0" dur="2.5s" repeatCount="indefinite" />
+                </circle>
+              )}
+
+              {/* Outer ring */}
+              {city.major && (
+                <circle cx={city.x} cy={city.y} r="7" fill="none" stroke="#39FF14" strokeWidth="0.6" opacity="0.35" />
+              )}
+
+              {/* Dot */}
+              <circle cx={city.x} cy={city.y} r={city.major ? 3.5 : 2} fill="#39FF14" opacity={city.major ? 1 : 0.65} />
+
+              {/* Label */}
+              <text
+                x={city.x + (isLeft ? 14 : -14)}
+                y={city.y + 1}
+                textAnchor={isLeft ? 'start' : 'end'}
+                dominantBaseline="middle"
+                fill={city.major ? '#ffffff' : 'rgba(255,255,255,0.4)'}
+                fontSize={city.major ? '11' : '8.5'}
+                fontFamily="'Space Grotesk', 'Inter', sans-serif"
+                fontWeight={city.major ? '600' : '400'}
+                letterSpacing="0.02em"
+              >
+                {city.name}
+              </text>
+            </g>
+          )
+        })}
 
         {/* "PACIFIC OCEAN" label */}
         <text
-          x="80"
-          y="500"
-          fill="rgba(57,255,20,0.08)"
-          fontSize="32"
+          x="65"
+          y="480"
+          fill="rgba(57,255,20,0.06)"
+          fontSize="36"
           fontFamily="'Space Grotesk', sans-serif"
           fontWeight="700"
-          letterSpacing="0.15em"
-          transform="rotate(-70, 80, 500)"
+          letterSpacing="0.2em"
+          transform="rotate(-68, 65, 480)"
         >
           PACIFIC OCEAN
         </text>
+
+        {/* Start marker — SB */}
+        <g>
+          <circle cx="85" cy="52" r="14" fill="none" stroke="#39FF14" strokeWidth="1" opacity="0.2" strokeDasharray="3 2" />
+          <text x="85" y="28" textAnchor="middle" fill="#39FF14" fontSize="8" fontFamily="'Space Grotesk', sans-serif" fontWeight="600" letterSpacing="0.1em" opacity="0.7">START</text>
+        </g>
+
+        {/* End marker — La Jolla */}
+        <g>
+          <circle cx="392" cy="630" r="14" fill="none" stroke="#39FF14" strokeWidth="1" opacity="0.2" strokeDasharray="3 2" />
+          <text x="392" y="660" textAnchor="middle" fill="#39FF14" fontSize="8" fontFamily="'Space Grotesk', sans-serif" fontWeight="600" letterSpacing="0.1em" opacity="0.7">END</text>
+        </g>
       </svg>
 
-      {/* Corner accents */}
-      <div className="absolute top-0 left-0 w-8 h-8 border-l border-t border-[#39FF14]/20" />
-      <div className="absolute top-0 right-0 w-8 h-8 border-r border-t border-[#39FF14]/20" />
-      <div className="absolute bottom-0 left-0 w-8 h-8 border-l border-b border-[#39FF14]/20" />
-      <div className="absolute bottom-0 right-0 w-8 h-8 border-r border-b border-[#39FF14]/20" />
+      {/* Corner frame accents */}
+      <div className="absolute top-0 left-0 w-10 h-10 border-l-2 border-t-2 border-[#39FF14]/15 rounded-tl-lg" />
+      <div className="absolute top-0 right-0 w-10 h-10 border-r-2 border-t-2 border-[#39FF14]/15 rounded-tr-lg" />
+      <div className="absolute bottom-0 left-0 w-10 h-10 border-l-2 border-b-2 border-[#39FF14]/15 rounded-bl-lg" />
+      <div className="absolute bottom-0 right-0 w-10 h-10 border-r-2 border-b-2 border-[#39FF14]/15 rounded-br-lg" />
+
+      {/* Distance label */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#39FF14]/[0.06] border border-[#39FF14]/15">
+        <div className="w-1.5 h-1.5 rounded-full bg-[#39FF14] animate-pulse" />
+        <span className="text-[10px] text-[#39FF14]/80 font-medium tracking-wide">200 MI COASTLINE</span>
+      </div>
     </div>
   )
 }

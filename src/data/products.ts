@@ -49,19 +49,19 @@ export const CATEGORIES: { value: Category | 'all'; label: string }[] = [
 ]
 
 export const PRODUCTS: Product[] = [
-  // ── FLOWER: Seedless ($35/8th) ──
+  // ── FLOWER: Seedless ($25/8th) ──
   {
     id: 'seedless',
     name: 'Seedless',
     brand: 'Seedless',
     category: 'flower',
     terpene_profile: 'euphoric',
-    price: 35,
+    price: 25,
     thc: '28%',
     description: 'Quality indoor flower at the best price on the coast. Always seedless, always fire.',
     in_stock: true,
     badge: 'Best Seller',
-    weights: { eighth: 35, q: 65, h: 120, oz: 220 },
+    weights: { eighth: 25, q: 45, h: 85, oz: 160 },
     flavors: [
       { name: 'Blue Dream', description: 'Sweet berry aroma with balanced full-body relaxation and gentle cerebral invigoration.', thc: '28%', emoji: '💙', terpene_profile: 'euphoric' },
       { name: 'Sour Diesel', description: 'Classic energizing strain with pungent diesel aroma. Great for daytime use.', thc: '26%', emoji: '⛽', terpene_profile: 'euphoric' },
@@ -70,19 +70,19 @@ export const PRODUCTS: Product[] = [
     ],
   },
 
-  // ── FLOWER: FJ420 ($45/8th) ──
+  // ── FLOWER: FJ420 ($30/8th) ──
   {
     id: 'fj420',
     name: 'FJ420',
     brand: 'FJ420',
     category: 'flower',
     terpene_profile: 'creative',
-    price: 45,
+    price: 30,
     thc: '29%',
     description: 'Premium exotic strains. Dense, frosty nugs with loud terps and bag appeal.',
     in_stock: true,
     badge: 'Premium',
-    weights: { eighth: 45, q: 80, h: 150, oz: 280 },
+    weights: { eighth: 30, q: 55, h: 100, oz: 190 },
     flavors: [
       { name: 'Purple Punch', description: 'Dense purple nugs with grape candy aroma. Perfect for evening relaxation.', thc: '25%', emoji: '🍇', terpene_profile: 'relaxed' },
       { name: 'Runtz', description: 'Candy-like aroma with colorful bag appeal. One of the most in-demand strains.', thc: '29%', emoji: '🍬', terpene_profile: 'creative' },
@@ -91,19 +91,19 @@ export const PRODUCTS: Product[] = [
     ],
   },
 
-  // ── FLOWER: Foreign ($55/8th) ──
+  // ── FLOWER: Foreign ($35/8th) ──
   {
     id: 'foreign',
     name: 'Foreign',
     brand: 'Foreign',
     category: 'flower',
     terpene_profile: 'creative',
-    price: 55,
+    price: 35,
     thc: '32%',
     description: 'Ultra-premium LA cannabis. Small-batch, hand-trimmed, top 1% quality.',
     in_stock: true,
     badge: 'Foreign',
-    weights: { eighth: 55, q: 100, h: 190, oz: 360 },
+    weights: { eighth: 35, q: 65, h: 120, oz: 220 },
     flavors: [
       { name: 'Lemon Cherry Gelato', description: 'Citrus meets cherry with creamy gelato finish. Dense, purple-green nugs coated in trichomes.', thc: '32%', emoji: '🍋', terpene_profile: 'euphoric' },
       { name: 'Biscotti', description: 'Cookie dough and earthy spice aroma. Heavy-hitting indica-dominant with long-lasting effects.', thc: '30%', emoji: '🍪', terpene_profile: 'heavy' },

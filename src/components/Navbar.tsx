@@ -29,7 +29,7 @@ export default function Navbar() {
       {/* Promo banner */}
       <div className="bg-[#39FF14] text-black text-center py-2 px-4 text-xs font-semibold flex items-center justify-center gap-2">
         <Truck className="w-3.5 h-3.5 hidden sm:block" />
-        <span>FREE DELIVERY on orders $75+ &bull; Santa Barbara to La Jolla</span>
+        <span>FREE DELIVERY &bull; $150 Minimum &bull; Santa Barbara to La Jolla</span>
       </div>
 
       <nav className="sticky top-0 z-50 bg-[#060606]/95 backdrop-blur-xl border-b border-white/[0.04]">

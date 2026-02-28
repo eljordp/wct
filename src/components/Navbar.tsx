@@ -63,11 +63,14 @@ export default function Navbar() {
       <nav className="sticky top-0 z-50 bg-[#060606]/95 backdrop-blur-xl border-b border-white/[0.04]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
-            <Link to="/home" className="flex items-center gap-2.5">
-              <img src="/logo.png" alt="WCT" className="h-10 w-auto" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
+            <Link to="/home" className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+              <img src="/logo.png" alt="WCT" className="h-8 sm:h-10 w-auto" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
               <div className="flex flex-col">
-                <span className="text-base font-bold text-white leading-tight">West Coast Terpz</span>
-                <span className="text-[10px] font-medium text-[#39FF14] uppercase tracking-widest">
+                <span className="text-sm sm:text-base font-bold text-white leading-tight">
+                  <span className="hidden sm:inline">West Coast Terpz</span>
+                  <span className="sm:hidden">WCT</span>
+                </span>
+                <span className="text-[9px] sm:text-[10px] font-medium text-[#39FF14] uppercase tracking-widest">
                   {isDelivery ? 'Delivery' : 'Wholesale'}
                 </span>
               </div>
@@ -160,7 +163,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <Link
                 to="/menu"
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-[#39FF14] text-black text-sm font-bold rounded-lg hover:brightness-110 transition-all"
+                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 bg-[#39FF14] text-black text-sm font-bold rounded-lg hover:brightness-110 transition-all"
               >
                 Order Now
               </Link>

@@ -176,8 +176,8 @@ export default function Checkout() {
                   <label className="block text-xs text-gray-500 mb-1.5">Street Address *</label>
                   <input type="text" required value={form.street} onChange={e => update('street', e.target.value)} className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white text-sm placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#39FF14]/30" placeholder="123 Main St" />
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <div className="col-span-2 sm:col-span-1">
                     <label className="block text-xs text-gray-500 mb-1.5">City *</label>
                     <input type="text" required value={form.city} onChange={e => update('city', e.target.value)} className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white text-sm placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#39FF14]/30" placeholder="City" />
                   </div>

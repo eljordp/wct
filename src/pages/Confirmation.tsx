@@ -105,9 +105,9 @@ export default function Confirmation() {
           <h3 className="font-semibold mb-4">Order Summary</h3>
           <div className="space-y-3 mb-4">
             {order.items?.map((item: any, i: number) => (
-              <div key={i} className="flex justify-between text-sm">
-                <span className="text-gray-400">{item.name} — {item.detail}</span>
-                <span className="text-white font-medium">${item.total.toFixed(2)}</span>
+              <div key={i} className="flex justify-between gap-3 text-sm">
+                <span className="text-gray-400 truncate">{item.name} — {item.detail}</span>
+                <span className="text-white font-medium shrink-0">${item.total.toFixed(2)}</span>
               </div>
             ))}
           </div>

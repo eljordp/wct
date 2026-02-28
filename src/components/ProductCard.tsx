@@ -187,14 +187,22 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setQty(Math.max(1, qty - 1))}
-                className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.08] transition-all"
+                className="w-9 h-9 sm:w-7 sm:h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.08] transition-all"
               >
                 <Minus className="w-3 h-3" />
               </button>
               <span className="w-6 text-center text-sm font-medium">{qty}</span>
               <button
-                onClick={() => setQty(qty + 1)}
-                className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.08] transition-all"
+                onClick={() => {
+                  const max = product.maxQuantity
+                  if (!max || qty < max) setQty(qty + 1)
+                }}
+                disabled={!!product.maxQuantity && qty >= product.maxQuantity}
+                className={`w-9 h-9 sm:w-7 sm:h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center transition-all ${
+                  product.maxQuantity && qty >= product.maxQuantity
+                    ? 'text-gray-700 cursor-not-allowed'
+                    : 'text-gray-400 hover:text-white hover:bg-white/[0.08]'
+                }`}
               >
                 <Plus className="w-3 h-3" />
               </button>

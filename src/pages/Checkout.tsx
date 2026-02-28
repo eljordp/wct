@@ -169,7 +169,7 @@ export default function Checkout() {
                 <h3 className="font-semibold">{isDelivery ? 'Delivery' : 'Shipping'} Address</h3>
               </div>
               {isDelivery && (
-                <p className="text-xs text-gray-500 mb-4">Delivery zone: Santa Barbara to La Jolla, CA</p>
+                <p className="text-xs text-gray-500 mb-4">Delivery zone: Santa Barbara to Greater Los Angeles, CA</p>
               )}
               <div className="space-y-4">
                 <div>

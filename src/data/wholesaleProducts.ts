@@ -23,9 +23,9 @@ export interface WholesaleProduct {
 }
 
 export const STRAIN_INFO: Record<Strain, { label: string; color: string }> = {
-  indica: { label: 'Indica', color: '#8B5CF6' },
-  sativa: { label: 'Sativa', color: '#F59E0B' },
-  hybrid: { label: 'Hybrid', color: '#10B981' },
+  indica: { label: 'Indica', color: '#A78BCA' },
+  sativa: { label: 'Sativa', color: '#D4A84B' },
+  hybrid: { label: 'Hybrid', color: '#6B9F8B' },
 }
 
 export const WHOLESALE_CATEGORIES: { value: WholesaleCategory | 'all'; label: string }[] = [

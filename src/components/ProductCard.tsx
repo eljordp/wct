@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Minus, ShoppingCart } from 'lucide-react'
+import { Plus, Minus, ShoppingCart, Moon, Sun, Palette, Leaf } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import type { Product, WeightOption } from '@/data/products'
 import { TERPENE_PROFILES, WEIGHT_OPTIONS } from '@/data/products'
 
@@ -10,11 +11,11 @@ interface Props {
   onAddToCart: (product: Product, quantity?: number, weight?: WeightOption, flavor?: string) => void
 }
 
-const PROFILE_ICONS: Record<string, string> = {
-  relaxed: '🍇',
-  euphoric: '☀️',
-  creative: '🎨',
-  heavy: '🌿',
+const PROFILE_ICONS: Record<string, LucideIcon> = {
+  relaxed: Moon,
+  euphoric: Sun,
+  creative: Palette,
+  heavy: Leaf,
 }
 
 export default function ProductCard({ product, index, onAddToCart }: Props) {
@@ -32,7 +33,7 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
     : TERPENE_PROFILES[product.terpene_profile]
   const activeThc = activeFlavor ? activeFlavor.thc : product.thc
   const activeDescription = activeFlavor ? activeFlavor.description : product.description
-  const activeEmoji = activeFlavor ? activeFlavor.emoji : PROFILE_ICONS[product.terpene_profile]
+  const ProfileIcon = PROFILE_ICONS[product.terpene_profile]
   const activeFlavorName = activeFlavor ? activeFlavor.name : undefined
 
   const displayPrice = hasWeights ? product.weights![selectedWeight] : product.price
@@ -73,14 +74,14 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
           />
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeEmoji}
+              key={activeFlavor ? activeFlavor.name : product.terpene_profile}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="text-5xl"
+              className="flex items-center justify-center"
             >
-              {activeEmoji}
+              <ProfileIcon className="w-12 h-12" style={{ color: activeProfile.color }} />
             </motion.div>
           </AnimatePresence>
           {/* Terpene badge */}

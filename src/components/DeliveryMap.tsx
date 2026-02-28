@@ -5,26 +5,19 @@ const CITIES: { name: string; x: number; y: number; major?: boolean }[] = [
   { name: 'Thousand Oaks', x: 215, y: 145 },
   { name: 'Malibu', x: 195, y: 195 },
   { name: 'Los Angeles', x: 275, y: 242, major: true },
-  { name: 'Long Beach', x: 310, y: 320 },
-  { name: 'Anaheim', x: 358, y: 305 },
-  { name: 'Irvine', x: 365, y: 370 },
-  { name: 'Newport Beach', x: 342, y: 392 },
-  { name: 'Oceanside', x: 372, y: 505 },
-  { name: 'Carlsbad', x: 378, y: 540 },
-  { name: 'Encinitas', x: 384, y: 572 },
-  { name: 'La Jolla', x: 392, y: 630, major: true },
+  { name: 'Long Beach', x: 310, y: 320, major: true },
 ]
 
-// Simplified SoCal coastline path — SB to La Jolla
-const COAST_PATH = 'M 35,38 C 55,35 70,42 85,52 C 100,62 125,90 145,110 C 155,122 140,135 148,158 C 156,178 180,192 195,205 C 215,222 248,238 270,252 C 288,264 298,290 310,320 C 318,340 330,370 342,392 C 352,412 360,448 368,478 C 374,500 378,525 382,548 C 385,565 388,595 392,630 C 395,648 397,660 398,675'
+// Simplified SoCal coastline path — SB to Greater LA
+const COAST_PATH = 'M 35,38 C 55,35 70,42 85,52 C 100,62 125,90 145,110 C 155,122 140,135 148,158 C 156,178 180,192 195,205 C 215,222 248,238 270,252 C 288,264 298,290 310,320'
 
 // Inland boundary of delivery zone
-const INLAND_PATH = 'M 35,38 C 90,20 170,60 220,95 C 270,130 330,180 370,230 C 400,270 420,330 430,400 C 440,470 440,550 430,630 C 425,660 420,675 398,675'
+const INLAND_PATH = 'M 35,38 C 90,20 170,60 220,95 C 270,130 330,180 370,250 C 380,280 365,310 310,320'
 
 export default function DeliveryMap() {
   return (
-    <div className="relative w-full aspect-[5/7] max-w-[500px] mx-auto">
-      <svg viewBox="0 0 500 730" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+    <div className="relative w-full aspect-[5/4] max-w-[500px] mx-auto">
+      <svg viewBox="0 0 440 400" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="6" result="blur" />
@@ -65,16 +58,16 @@ export default function DeliveryMap() {
 
         {/* Background grid */}
         <g opacity="0.04">
-          {Array.from({ length: 19 }).map((_, row) =>
-            Array.from({ length: 14 }).map((_, col) => (
-              <circle key={`${row}-${col}`} cx={col * 38 + 12} cy={row * 40 + 10} r="0.6" fill="white" />
+          {Array.from({ length: 11 }).map((_, row) =>
+            Array.from({ length: 12 }).map((_, col) => (
+              <circle key={`${row}-${col}`} cx={col * 38 + 12} cy={row * 38 + 10} r="0.6" fill="white" />
             ))
           )}
         </g>
 
         {/* Delivery zone fill */}
         <path
-          d={`${COAST_PATH} L 398,675 ${INLAND_PATH.replace('M', 'L').split(' ').reverse().join(' ')} Z`}
+          d={`${COAST_PATH} L 310,320 ${INLAND_PATH.replace('M', 'L').split(' ').reverse().join(' ')} Z`}
           fill="url(#zoneGrad)"
           opacity="0.8"
         />
@@ -140,14 +133,14 @@ export default function DeliveryMap() {
 
         {/* "PACIFIC OCEAN" label */}
         <text
-          x="65"
-          y="480"
+          x="30"
+          y="280"
           fill="rgba(57,255,20,0.06)"
-          fontSize="36"
+          fontSize="32"
           fontFamily="'Space Grotesk', sans-serif"
           fontWeight="700"
           letterSpacing="0.2em"
-          transform="rotate(-68, 65, 480)"
+          transform="rotate(-55, 30, 280)"
         >
           PACIFIC OCEAN
         </text>
@@ -158,10 +151,10 @@ export default function DeliveryMap() {
           <text x="85" y="28" textAnchor="middle" fill="#39FF14" fontSize="8" fontFamily="'Space Grotesk', sans-serif" fontWeight="600" letterSpacing="0.1em" opacity="0.7">START</text>
         </g>
 
-        {/* End marker — La Jolla */}
+        {/* End marker — Long Beach */}
         <g>
-          <circle cx="392" cy="630" r="14" fill="none" stroke="#39FF14" strokeWidth="1" opacity="0.2" strokeDasharray="3 2" />
-          <text x="392" y="660" textAnchor="middle" fill="#39FF14" fontSize="8" fontFamily="'Space Grotesk', sans-serif" fontWeight="600" letterSpacing="0.1em" opacity="0.7">END</text>
+          <circle cx="310" cy="320" r="14" fill="none" stroke="#39FF14" strokeWidth="1" opacity="0.2" strokeDasharray="3 2" />
+          <text x="310" y="350" textAnchor="middle" fill="#39FF14" fontSize="8" fontFamily="'Space Grotesk', sans-serif" fontWeight="600" letterSpacing="0.1em" opacity="0.7">END</text>
         </g>
       </svg>
 
@@ -174,7 +167,7 @@ export default function DeliveryMap() {
       {/* Distance label */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#39FF14]/[0.06] border border-[#39FF14]/15">
         <div className="w-1.5 h-1.5 rounded-full bg-[#39FF14] animate-pulse" />
-        <span className="text-[10px] text-[#39FF14]/80 font-medium tracking-wide">200 MI COASTLINE</span>
+        <span className="text-[10px] text-[#39FF14]/80 font-medium tracking-wide">100 MI COASTLINE</span>
       </div>
     </div>
   )

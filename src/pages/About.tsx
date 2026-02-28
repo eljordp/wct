@@ -23,8 +23,7 @@ const WHOLESALE_VALUES = [
 
 const DELIVERY_CITIES = [
   'Santa Barbara', 'Ventura', 'Oxnard', 'Thousand Oaks', 'Malibu',
-  'Los Angeles', 'Long Beach', 'Anaheim', 'Irvine', 'Newport Beach',
-  'Oceanside', 'Carlsbad', 'Encinitas', 'La Jolla',
+  'Los Angeles', 'Long Beach',
 ]
 
 export default function About() {
@@ -61,7 +60,7 @@ export default function About() {
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
             {isDelivery
-              ? 'West Coast Terpz delivers premium cannabis straight to your door. We serve the entire Southern California coastline from Santa Barbara to La Jolla.'
+              ? 'West Coast Terpz delivers premium cannabis straight to your door. We serve the Southern California coastline from Santa Barbara to Greater Los Angeles.'
               : 'West Coast Terpz offers premium wholesale cannabis products shipped nationwide. Tiered pricing, top-shelf quality, and fast shipping for your business.'}
           </p>
         </motion.div>
@@ -90,7 +89,7 @@ export default function About() {
                 ? [
                     { value: '45min', label: 'Avg Delivery' },
                     { value: '16+', label: 'Products' },
-                    { value: '200mi', label: 'Coastline' },
+                    { value: '100mi', label: 'Coastline' },
                     { value: '21+', label: 'Verified' },
                   ]
                 : [
@@ -113,7 +112,7 @@ export default function About() {
                     We believe cannabis should be curated like craft coffee — by flavor, effect, and experience. That's why our menu is organized by terpene profiles: Relaxed, Euphoric, Creative, and Heavy.
                   </p>
                   <p>
-                    Every product is sourced from California's top cultivators, lab tested for purity and potency, and delivered fast to your door. From Santa Barbara down through LA, Orange County, and all the way to La Jolla.
+                    Every product is sourced from California's top cultivators, lab tested for purity and potency, and delivered fast to your door. From Santa Barbara down the coast through Ventura, Malibu, and into Greater LA.
                   </p>
                 </>
               ) : (
@@ -151,7 +150,7 @@ export default function About() {
             <h3 className="text-lg font-bold mb-3">{isDelivery ? 'SoCal Roots' : 'Nationwide Reach'}</h3>
             <p className="text-sm text-gray-400 leading-relaxed">
               {isDelivery
-                ? 'Based in Southern California, we source from the state\'s top cultivators and deliver across 200 miles of coastline. Our central location means fast delivery to every city in our zone.'
+                ? 'Based in Southern California, we source from the state\'s top cultivators and deliver across 100 miles of coastline. Our central location means fast delivery to every city in our zone.'
                 : 'Based in California, we ship to all 50 states. Our products comply with the 2018 Farm Bill, and we work with trusted shipping partners to ensure fast, discreet delivery.'}
             </p>
           </div>
@@ -209,7 +208,7 @@ export default function About() {
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold">Delivery Zone</h2>
-                    <p className="text-sm text-gray-500">Santa Barbara to La Jolla</p>
+                    <p className="text-sm text-gray-500">Santa Barbara to Greater LA</p>
                   </div>
                 </div>
 
@@ -232,7 +231,7 @@ export default function About() {
                     <div className="text-[10px] text-gray-500 mt-1 uppercase tracking-wider">Local Delivery</div>
                   </div>
                   <div className="p-5 rounded-xl bg-white/[0.02] border border-white/[0.06] text-center">
-                    <div className="text-2xl font-black text-[#39FF14]">200mi</div>
+                    <div className="text-2xl font-black text-[#39FF14]">100mi</div>
                     <div className="text-[10px] text-gray-500 mt-1 uppercase tracking-wider">Coastline</div>
                   </div>
                 </div>

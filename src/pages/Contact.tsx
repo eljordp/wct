@@ -63,7 +63,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-xs text-gray-500">Delivery Zone</p>
-                    <p className="text-white">Santa Barbara to La Jolla</p>
+                    <p className="text-white">Santa Barbara to Greater LA</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

@@ -282,7 +282,7 @@ export default function CartPage() {
           </Link>
           <p className="text-xs text-gray-600 text-center mt-3">
             {isDelivery
-              ? 'Must be 21+ with valid ID at delivery \u2022 Santa Barbara to La Jolla'
+              ? 'Must be 21+ with valid ID at delivery \u2022 Santa Barbara to Greater LA'
               : 'Wholesale orders only \u2022 Must be 21+ to purchase'}
           </p>
         </div>

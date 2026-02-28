@@ -1,8 +1,17 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Plus, ShoppingCart } from 'lucide-react'
+import { Plus, ShoppingCart, Leaf, Wind, Candy, Gem, Cigarette } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import type { WholesaleProduct } from '@/data/wholesaleProducts'
 import { STRAIN_INFO, getWholesaleUnitPrice } from '@/data/wholesaleProducts'
+
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  flower: Leaf,
+  vapes: Wind,
+  edibles: Candy,
+  concentrates: Gem,
+  'pre-rolls': Cigarette,
+}
 
 interface Props {
   product: WholesaleProduct
@@ -47,12 +56,10 @@ export default function WholesaleProductCard({ product, index, onAddToCart }: Pr
             className="absolute inset-0 opacity-[0.05] transition-all duration-500"
             style={{ background: `radial-gradient(circle at 50% 80%, ${strainInfo.color}, transparent 70%)` }}
           />
-          <div className="text-5xl">
-            {product.category === 'flower' ? '🌿' :
-             product.category === 'vapes' ? '💨' :
-             product.category === 'edibles' ? '🍬' :
-             product.category === 'concentrates' ? '💎' : '🚬'}
-          </div>
+          {(() => {
+            const Icon = CATEGORY_ICONS[product.category] || Leaf
+            return <Icon className="w-12 h-12" style={{ color: strainInfo.color }} />
+          })()}
           {/* Strain badge */}
           <div
             className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-semibold border backdrop-blur-sm"

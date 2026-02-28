@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Truck, ArrowRight, MapPin, Star, ShieldCheck, Leaf, Sparkles, Clock, FlaskConical, Package, DollarSign, Layers } from 'lucide-react'
+import { Truck, ArrowRight, MapPin, Star, ShieldCheck, Leaf, Sparkles, Clock, FlaskConical, Package, DollarSign, Layers, Moon, Sun, Palette } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import WholesaleProductCard from '@/components/WholesaleProductCard'
 import DeliveryMap from '@/components/DeliveryMap'
@@ -9,14 +9,14 @@ import { WHOLESALE_PRODUCTS } from '@/data/wholesaleProducts'
 import { useCart } from '@/context/CartContext'
 import { useMode } from '@/context/ModeContext'
 
-const TERPENE_CARDS: { profile: TerpeneProfile; icon: typeof Leaf; emoji: string }[] = [
-  { profile: 'relaxed', icon: Leaf, emoji: '🍇' },
-  { profile: 'euphoric', icon: Sparkles, emoji: '☀️' },
-  { profile: 'creative', icon: Star, emoji: '🎨' },
-  { profile: 'heavy', icon: ShieldCheck, emoji: '🌿' },
+const TERPENE_CARDS: { profile: TerpeneProfile; icon: typeof Leaf }[] = [
+  { profile: 'relaxed', icon: Moon },
+  { profile: 'euphoric', icon: Sun },
+  { profile: 'creative', icon: Palette },
+  { profile: 'heavy', icon: Leaf },
 ]
 
-const CITIES = ['Santa Barbara', 'Ventura', 'Malibu', 'Los Angeles', 'Long Beach', 'Newport Beach', 'Carlsbad', 'La Jolla']
+const CITIES = ['Santa Barbara', 'Ventura', 'Oxnard', 'Thousand Oaks', 'Malibu', 'Los Angeles', 'Long Beach']
 
 export default function Home() {
   const { addToCart, addWholesaleToCart } = useCart()
@@ -77,7 +77,7 @@ export default function Home() {
 
               <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }} className="text-lg text-gray-500 mb-10 max-w-md leading-relaxed">
                 {isDelivery
-                  ? 'Terpene-curated menus delivered to your door. 200 miles of California coastline covered.'
+                  ? 'Terpene-curated menus delivered to your door. Santa Barbara to Greater Los Angeles.'
                   : 'Top-shelf flower, vapes, edibles & concentrates at wholesale prices. Ships anywhere in the US.'}
               </motion.p>
 
@@ -127,7 +127,7 @@ export default function Home() {
             {(isDelivery
               ? [
                   { value: '45', unit: 'min', label: 'Avg Delivery' },
-                  { value: '200', unit: 'mi', label: 'Coastline' },
+                  { value: '100', unit: 'mi', label: 'Coastline' },
                   { value: '100', unit: '%', label: 'Lab Tested' },
                   { value: '$150', unit: '', label: 'Min Order' },
                 ]
@@ -168,7 +168,7 @@ export default function Home() {
               <p className="text-gray-500 mt-4 max-w-lg mx-auto text-sm leading-relaxed">Every product is categorized by its terpene profile so you find exactly the experience you want.</p>
             </motion.div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {TERPENE_CARDS.map(({ profile, emoji }, i) => {
+              {TERPENE_CARDS.map(({ profile, icon: Icon }, i) => {
                 const info = TERPENE_PROFILES[profile]
                 return (
                   <motion.div key={profile} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
@@ -182,7 +182,9 @@ export default function Home() {
                         style={{ background: `radial-gradient(circle at 50% 60%, ${info.color}08, transparent 70%)` }}
                       />
                       <div className="relative z-10">
-                        <div className="text-4xl mb-4">{emoji}</div>
+                        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4" style={{ backgroundColor: `${info.color}15` }}>
+                          <Icon className="w-6 h-6" style={{ color: info.color }} />
+                        </div>
                         <h3 className="font-bold text-base mb-1.5" style={{ color: info.color }}>{info.label}</h3>
                         <p className="text-[11px] text-gray-500 leading-relaxed">{info.description}</p>
                       </div>
@@ -263,12 +265,12 @@ export default function Home() {
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                 <span className="text-[10px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Delivery Zone</span>
                 <h2 className="text-3xl sm:text-4xl font-black mt-4 mb-6 tracking-tight">
-                  200 Miles of
+                  100 Miles of
                   <br />
                   <span className="gradient-text">California Coast</span>
                 </h2>
                 <p className="text-gray-500 mb-10 leading-relaxed text-sm">
-                  From Santa Barbara all the way down the coast through Greater Los Angeles, Orange County, and into San Diego County — ending at La Jolla. Premium cannabis delivered to your door.
+                  From Santa Barbara down the coast through Ventura, Malibu, and into the Greater Los Angeles area. Premium cannabis delivered to your door.
                 </p>
 
                 <div className="grid grid-cols-2 gap-3 mb-10">
@@ -383,7 +385,7 @@ export default function Home() {
               ? [
                   { quote: 'Fastest delivery I\'ve experienced. Product quality is incredible and the terpene menu makes ordering easy.', name: 'Marcus T.', city: 'Los Angeles', stars: 5 },
                   { quote: 'Love that they organize by terpene profiles. Found my perfect relaxed strain on the first try. Will never go anywhere else.', name: 'Alyssa R.', city: 'Santa Barbara', stars: 5 },
-                  { quote: 'Ordered at 6PM and it was at my door by 6:40. Lab-tested, beautifully packaged. This is how it should be done.', name: 'Jordan K.', city: 'La Jolla', stars: 5 },
+                  { quote: 'Ordered at 6PM and it was at my door by 6:40. Lab-tested, beautifully packaged. This is how it should be done.', name: 'Jordan K.', city: 'Malibu', stars: 5 },
                 ]
               : [
                   { quote: 'Best wholesale prices I\'ve found. The tiered pricing makes it easy to plan inventory. Great product quality.', name: 'Mike D.', city: 'Denver, CO', stars: 5 },
@@ -424,7 +426,7 @@ export default function Home() {
               <h2 className="text-3xl sm:text-5xl font-black mb-5 tracking-tight">Ready to order?</h2>
               <p className="text-gray-500 mb-10 max-w-md mx-auto text-sm leading-relaxed">
                 {isDelivery
-                  ? 'Premium cannabis delivered anywhere from Santa Barbara to La Jolla. Free delivery on all orders.'
+                  ? 'Premium cannabis delivered anywhere from Santa Barbara to Greater Los Angeles. Free delivery on all orders.'
                   : 'Premium wholesale products shipped anywhere in the US. Free shipping on orders over $500.'}
               </p>
               <Link to="/menu" className="group inline-flex items-center justify-center gap-2.5 px-12 py-4.5 bg-[#39FF14] text-black font-bold rounded-xl hover:shadow-[0_0_60px_rgba(57,255,20,0.35)] transition-all duration-500 text-sm">

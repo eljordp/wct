@@ -21,7 +21,7 @@ export default function Footer() {
             </div>
             <p className="text-sm text-gray-500 leading-relaxed">
               {isDelivery
-                ? 'Premium cannabis delivery from Santa Barbara to La Jolla. Curated terpene-focused menus.'
+                ? 'Premium cannabis delivery from Santa Barbara to Greater Los Angeles. Curated terpene-focused menus.'
                 : 'Premium wholesale cannabis products shipped nationwide. Tiered pricing for bulk orders.'}
             </p>
           </div>
@@ -60,7 +60,7 @@ export default function Footer() {
                 <>
                   <div className="flex items-center gap-2.5">
                     <MapPin className="w-4 h-4 text-[#39FF14]/60 shrink-0" />
-                    <span>Santa Barbara to La Jolla</span>
+                    <span>Santa Barbara to Greater LA</span>
                   </div>
                   <div className="flex items-center gap-2.5">
                     <Clock className="w-4 h-4 text-[#39FF14]/60 shrink-0" />

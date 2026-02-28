@@ -11,17 +11,17 @@ import { WHOLESALE_PRODUCTS, WHOLESALE_CATEGORIES, type Strain, type WholesaleCa
 
 const PROFILE_FILTERS: { name: TerpeneProfile | 'all'; label: string; color: string }[] = [
   { name: 'all', label: 'All', color: '#ffffff' },
-  { name: 'relaxed', label: 'Relaxed', color: '#8B5CF6' },
-  { name: 'euphoric', label: 'Euphoric', color: '#F59E0B' },
-  { name: 'creative', label: 'Creative', color: '#EC4899' },
-  { name: 'heavy', label: 'Heavy', color: '#10B981' },
+  { name: 'relaxed', label: 'Relaxed', color: '#A78BCA' },
+  { name: 'euphoric', label: 'Euphoric', color: '#D4A84B' },
+  { name: 'creative', label: 'Creative', color: '#C77D99' },
+  { name: 'heavy', label: 'Heavy', color: '#6B9F8B' },
 ]
 
 const STRAIN_FILTERS: { name: Strain | 'all'; label: string; color: string }[] = [
   { name: 'all', label: 'All', color: '#ffffff' },
-  { name: 'indica', label: 'Indica', color: '#8B5CF6' },
-  { name: 'sativa', label: 'Sativa', color: '#F59E0B' },
-  { name: 'hybrid', label: 'Hybrid', color: '#10B981' },
+  { name: 'indica', label: 'Indica', color: '#A78BCA' },
+  { name: 'sativa', label: 'Sativa', color: '#D4A84B' },
+  { name: 'hybrid', label: 'Hybrid', color: '#6B9F8B' },
 ]
 
 export default function MenuPage() {
@@ -185,7 +185,7 @@ export default function MenuPage() {
         <div className="mt-16 pt-8 border-t border-white/[0.04]">
           <p className="text-[11px] text-gray-700 text-center leading-relaxed">
             {isDelivery
-              ? 'Licensed cannabis delivery. Must be 21+ with valid ID. Delivery from Santa Barbara to La Jolla.'
+              ? 'Licensed cannabis delivery. Must be 21+ with valid ID. Delivery from Santa Barbara to Greater Los Angeles.'
               : 'All products comply with the 2018 Farm Bill and contain less than 0.3% Delta-9 THC. Wholesale accounts only. Must be 21+ to purchase.'}
           </p>
         </div>

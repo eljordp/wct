@@ -34,10 +34,10 @@ export interface Product {
 }
 
 export const TERPENE_PROFILES: Record<TerpeneProfile, { label: string; color: string; description: string }> = {
-  relaxed: { label: 'Relaxed', color: '#8B5CF6', description: 'Calming effects, great for unwinding' },
-  euphoric: { label: 'Euphoric', color: '#F59E0B', description: 'Uplifting mood enhancement' },
-  creative: { label: 'Creative', color: '#EC4899', description: 'Inspiring and imaginative effects' },
-  heavy: { label: 'Heavy', color: '#10B981', description: 'Deep, full-body relaxation' },
+  relaxed: { label: 'Relaxed', color: '#A78BCA', description: 'Calming effects, great for unwinding' },
+  euphoric: { label: 'Euphoric', color: '#D4A84B', description: 'Uplifting mood enhancement' },
+  creative: { label: 'Creative', color: '#C77D99', description: 'Inspiring and imaginative effects' },
+  heavy: { label: 'Heavy', color: '#6B9F8B', description: 'Deep, full-body relaxation' },
 }
 
 export const CATEGORIES: { value: Category | 'all'; label: string }[] = [

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShieldCheck, MapPin, Upload, ArrowRight } from 'lucide-react'
+import { ShieldCheck, Upload, ArrowRight } from 'lucide-react'
 
 interface Props {
   isOpen: boolean
@@ -46,7 +46,7 @@ export default function AgeVerification({ isOpen, onVerify, onDeny }: Props) {
                   />
 
                   <h2 className="text-2xl font-bold mb-0.5">West Coast Terpz</h2>
-                  <p className="text-[10px] font-semibold text-[#39FF14]/70 uppercase tracking-[0.25em] mb-6">Premium Delivery</p>
+                  <p className="text-[10px] font-semibold text-[#39FF14]/70 uppercase tracking-[0.25em] mb-6">Premium Cannabis</p>
 
                   <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent mb-6" />
 
@@ -75,11 +75,11 @@ export default function AgeVerification({ isOpen, onVerify, onDeny }: Props) {
                   <div className="flex flex-wrap items-center justify-center gap-4 text-[10px] text-gray-600">
                     <div className="flex items-center gap-1">
                       <ShieldCheck className="w-3 h-3 text-[#39FF14]/50" />
-                      Licensed Delivery
+                      Lab Tested
                     </div>
                     <div className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-[#39FF14]/50" />
-                      SB to La Jolla
+                      <ShieldCheck className="w-3 h-3 text-[#39FF14]/50" />
+                      21+ Only
                     </div>
                   </div>
                 </div>
@@ -91,7 +91,7 @@ export default function AgeVerification({ isOpen, onVerify, onDeny }: Props) {
 
                   <h2 className="text-xl font-bold mb-2">Verify Your ID</h2>
                   <p className="text-sm text-gray-500 mb-8 max-w-xs mx-auto leading-relaxed">
-                    Upload a photo of your government-issued ID to verify your age. Required for all deliveries.
+                    Upload a photo of your government-issued ID to verify your age. Required for all orders.
                   </p>
 
                   {/* ID Upload placeholder */}
@@ -117,7 +117,7 @@ export default function AgeVerification({ isOpen, onVerify, onDeny }: Props) {
                   </div>
 
                   <p className="text-[10px] text-gray-700 leading-relaxed">
-                    ID verification is required before your first delivery. You can skip to browse the menu.
+                    ID verification is required before your first order. You can skip to browse the menu.
                   </p>
                 </div>
               )}

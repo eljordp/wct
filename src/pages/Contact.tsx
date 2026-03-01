@@ -4,10 +4,34 @@ import { useState } from 'react'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '', type: 'order' })
+  const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    alert('Thank you! We will get back to you within 24 hours.')
+    setSubmitting(true)
+    try {
+      const formId = import.meta.env.VITE_FORMSPREE_CONTACT_ID
+      if (formId) {
+        await fetch(`https://formspree.io/f/${formId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            _subject: `Contact Form — ${form.type}`,
+            name: form.name,
+            email: form.email,
+            phone: form.phone || 'N/A',
+            inquiry_type: form.type,
+            message: form.message,
+          }),
+        })
+      }
+      setSubmitted(true)
+    } catch {
+      setSubmitted(true)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -160,14 +184,28 @@ export default function Contact() {
                 />
               </div>
 
-              <button
-                type="submit"
-                className="w-full flex items-center justify-center gap-2 py-3.5 bg-[#39FF14] text-black font-bold rounded-xl hover:brightness-110 transition-all text-sm"
-              >
-                <Send className="w-4 h-4" />
-                Send Message
-              </button>
-              <p className="text-xs text-gray-500 text-center mt-3">We typically respond within 24 hours</p>
+              {submitted ? (
+                <div className="text-center py-2">
+                  <p className="text-[#39FF14] font-semibold text-sm">Message sent!</p>
+                  <p className="text-xs text-gray-500 mt-1">We typically respond within 24 hours</p>
+                </div>
+              ) : (
+                <>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className={`w-full flex items-center justify-center gap-2 py-3.5 font-bold rounded-xl transition-all text-sm ${
+                      submitting
+                        ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                        : 'bg-[#39FF14] text-black hover:brightness-110'
+                    }`}
+                  >
+                    <Send className="w-4 h-4" />
+                    {submitting ? 'Sending...' : 'Send Message'}
+                  </button>
+                  <p className="text-xs text-gray-500 text-center mt-3">We typically respond within 24 hours</p>
+                </>
+              )}
             </form>
           </motion.div>
         </div>

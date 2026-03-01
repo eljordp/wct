@@ -11,21 +11,19 @@ export default function Contact() {
     e.preventDefault()
     setSubmitting(true)
     try {
-      const formId = import.meta.env.VITE_FORMSPREE_CONTACT_ID
-      if (formId) {
-        await fetch(`https://formspree.io/f/${formId}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({
-            _subject: `Contact Form — ${form.type}`,
-            name: form.name,
-            email: form.email,
-            phone: form.phone || 'N/A',
-            inquiry_type: form.type,
-            message: form.message,
-          }),
-        })
-      }
+      await fetch('https://formsubmit.co/ajax/ingrandefrankie@icloud.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `WCT Contact — ${form.type}`,
+          _template: 'table',
+          name: form.name,
+          email: form.email,
+          phone: form.phone || 'N/A',
+          inquiry_type: form.type,
+          message: form.message,
+        }),
+      })
       setSubmitted(true)
     } catch {
       setSubmitted(true)

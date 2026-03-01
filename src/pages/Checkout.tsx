@@ -83,32 +83,30 @@ export default function Checkout() {
       existing.unshift(order)
       localStorage.setItem('wct-orders', JSON.stringify(existing))
 
-      // Send order notification via Formspree
+      // Send order notification via FormSubmit
       try {
-        const formId = import.meta.env.VITE_FORMSPREE_ORDER_ID
-        if (formId) {
-          await fetch(`https://formspree.io/f/${formId}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({
-              _subject: `New Order ${orderId} — ${isDelivery ? 'Delivery' : 'Wholesale'}`,
-              order_number: orderId,
-              mode: isDelivery ? 'Delivery' : 'Wholesale',
-              customer_name: form.name,
-              customer_email: form.email,
-              customer_phone: form.phone,
-              address: `${form.street}, ${form.city}, ${form.state} ${form.zip}`,
-              company: form.company || 'N/A',
-              payment_method: form.payment,
-              delivery_window: isDelivery ? form.deliveryWindow : 'N/A',
-              items: orderItems.map(i => `${i.name} — ${i.detail} = $${i.total.toFixed(2)}`).join('\n'),
-              total: `$${total.toFixed(2)}`,
-              notes: form.notes || 'None',
-            }),
-          })
-        }
+        await fetch('https://formsubmit.co/ajax/ingrandefrankie@icloud.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            _subject: `New Order ${orderId} — ${isDelivery ? 'Delivery' : 'Wholesale'}`,
+            _template: 'table',
+            order_number: orderId,
+            mode: isDelivery ? 'Delivery' : 'Wholesale',
+            customer_name: form.name,
+            customer_email: form.email,
+            customer_phone: form.phone,
+            address: `${form.street}, ${form.city}, ${form.state} ${form.zip}`,
+            company: form.company || 'N/A',
+            payment_method: form.payment,
+            delivery_window: isDelivery ? form.deliveryWindow : 'N/A',
+            items: orderItems.map(i => `${i.name} — ${i.detail} = $${i.total.toFixed(2)}`).join('\n'),
+            total: `$${total.toFixed(2)}`,
+            notes: form.notes || 'None',
+          }),
+        })
       } catch {
-        // Formspree not configured or failed — order is still saved locally
+        // Email failed — order is still saved locally
       }
 
       clearCart()

@@ -4,7 +4,11 @@ const CITIES: { name: string; x: number; y: number; major?: boolean; labelDir: '
   { name: 'Oxnard', x: 212, y: 112, labelDir: 'right' },
   { name: 'Thousand Oaks', x: 255, y: 105, labelDir: 'right' },
   { name: 'Malibu', x: 295, y: 178, labelDir: 'above' },
-  { name: 'Los Angeles', x: 388, y: 165, major: true, labelDir: 'right' },
+  { name: 'Santa Monica', x: 352, y: 190, labelDir: 'left' },
+  { name: 'West Hollywood', x: 374, y: 170, labelDir: 'right' },
+  { name: 'DTLA', x: 400, y: 155, labelDir: 'right' },
+  { name: 'Manhattan Beach', x: 356, y: 242, labelDir: 'left' },
+  { name: 'Torrance', x: 370, y: 265, labelDir: 'right' },
   { name: 'Long Beach', x: 448, y: 306, major: true, labelDir: 'left' },
 ]
 
@@ -60,12 +64,6 @@ export default function DeliveryMap() {
 
         {/* Zone boundary — inland dashed */}
         <path d={INLAND_PATH} fill="none" stroke="#39FF14" strokeWidth="0.8" strokeDasharray="6 4" opacity="0.15" />
-
-        {/* Channel Islands (faint geographic context) */}
-        <g opacity="0.06">
-          <ellipse cx="125" cy="148" rx="34" ry="6" fill="none" stroke="white" strokeWidth="0.8" transform="rotate(-8, 125, 148)" />
-          <ellipse cx="198" cy="145" rx="9" ry="2.5" fill="none" stroke="white" strokeWidth="0.6" />
-        </g>
 
         {/* Coast — outer glow */}
         <path d={COAST_PATH} fill="none" stroke="#39FF14" strokeWidth="8" strokeLinecap="round" opacity="0.08" filter="url(#glow)" />
@@ -125,19 +123,6 @@ export default function DeliveryMap() {
           )
         })}
 
-        {/* "PACIFIC OCEAN" label */}
-        <text
-          x="55"
-          y="285"
-          fill="rgba(57,255,20,0.06)"
-          fontSize="28"
-          fontFamily="'Space Grotesk', sans-serif"
-          fontWeight="700"
-          letterSpacing="0.2em"
-          transform="rotate(-38, 55, 285)"
-        >
-          PACIFIC OCEAN
-        </text>
       </svg>
 
       {/* Corner frame accents */}

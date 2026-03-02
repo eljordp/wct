@@ -25,9 +25,20 @@ function getItemKey(item: CartItem): string {
   return parts.join('-')
 }
 
+export function getQuantityPrice(tiers: { minQty: number; price: number }[], qty: number): number {
+  const sorted = [...tiers].sort((a, b) => b.minQty - a.minQty)
+  for (const tier of sorted) {
+    if (qty >= tier.minQty) return tier.price
+  }
+  return tiers[0].price
+}
+
 export function getItemPrice(item: CartItem): number {
   if (item.mode === 'wholesale' && item.wholesaleProduct) {
     return getWholesaleUnitPrice(item.wholesaleProduct, item.quantity)
+  }
+  if (item.product?.quantityPricing) {
+    return getQuantityPrice(item.product.quantityPricing, item.quantity)
   }
   if (item.product && item.weight && item.product.weights) {
     return item.product.weights[item.weight]

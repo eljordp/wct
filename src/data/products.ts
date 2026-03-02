@@ -29,6 +29,7 @@ export interface Product {
   in_stock: boolean
   badge?: string
   weights?: Record<WeightOption, number>
+  quantityPricing?: { minQty: number; price: number; label: string }[]
   flavors?: Flavor[]
   brand?: string
   maxQuantity?: number
@@ -58,6 +59,7 @@ export const PRODUCTS: Product[] = [
     description: 'GMO Indoor Exotic Smalls: same fire, smaller nugs, better price. Grown indoors under full control for maximum potency and flavor. That classic garlic-gas funk GMO is known for, just in a more affordable format. Top-tier quality without the top-tier ticket.',
     in_stock: true,
     badge: 'Value',
+    brand: 'WCT',
     weights: { eighth: 20, q: 35, h: 55, oz: 100 },
   },
   {
@@ -121,27 +123,30 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'foreign-wendy',
-    name: 'Foreign Wendy',
+    name: 'Wendy',
     category: 'flower',
     terpene_profile: 'euphoric',
     price: 40,
     thc: '34%+',
-    description: 'Foreign Wendy is an exclusive drop: limited supply, heavy demand. Exotic terpene profile with an electric high that stands out from everything else on the market. This one sells itself. Limited availability, max 1 oz per order.',
+    description: 'Wendy is an exclusive drop: limited supply, heavy demand. Exotic terpene profile with an electric high that stands out from everything else on the market. This one sells itself. Limited availability, max 1 oz per order.',
     in_stock: true,
     badge: 'Exclusive',
     brand: 'Foreign',
     weights: { eighth: 40, q: 65, h: 110, oz: 200 },
   },
   {
-    id: 'lean-cup-cart',
-    name: 'Lean Cup Cart',
+    id: 'seedless-carts',
+    name: 'Seedless Carts',
     category: 'vapes',
     terpene_profile: 'relaxed',
-    price: 80,
+    price: 30,
     thc: '90%+',
-    description: 'The Lean Cup Cart: smooth, potent, and built different. Premium oil in a sleek cart that delivers every time. Limited to 1 per customer. If you know, you know.',
+    description: 'Seedless Carts: smooth, potent, and built different. Premium oil in a sleek cart that delivers every time. Stock up and save.',
     in_stock: true,
-    badge: 'Limited',
-    maxQuantity: 1,
+    quantityPricing: [
+      { minQty: 1, price: 30, label: '1+' },
+      { minQty: 5, price: 25, label: '5+' },
+      { minQty: 10, price: 22, label: '10+' },
+    ],
   },
 ]

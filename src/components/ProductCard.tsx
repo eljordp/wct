@@ -4,6 +4,7 @@ import { Plus, Minus, ShoppingCart, Moon, Sun, Palette, Leaf } from 'lucide-reac
 import type { LucideIcon } from 'lucide-react'
 import type { Product, WeightOption } from '@/data/products'
 import { TERPENE_PROFILES, WEIGHT_OPTIONS } from '@/data/products'
+import { getQuantityPrice } from '@/context/CartContext'
 
 interface Props {
   product: Product
@@ -20,6 +21,7 @@ const PROFILE_ICONS: Record<string, LucideIcon> = {
 
 export default function ProductCard({ product, index, onAddToCart }: Props) {
   const hasWeights = !!product.weights
+  const hasQtyPricing = !!product.quantityPricing?.length
   const hasFlavors = !!product.flavors?.length
   const [selectedFlavor, setSelectedFlavor] = useState(0)
   const [selectedWeight, setSelectedWeight] = useState<WeightOption>('eighth')
@@ -36,8 +38,10 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
   const ProfileIcon = PROFILE_ICONS[product.terpene_profile]
   const activeFlavorName = activeFlavor ? activeFlavor.name : undefined
 
-  const displayPrice = hasWeights ? product.weights![selectedWeight] : product.price
-  const totalPrice = displayPrice * qty
+  const unitPrice = hasQtyPricing
+    ? getQuantityPrice(product.quantityPricing!, qty)
+    : hasWeights ? product.weights![selectedWeight] : product.price
+  const totalPrice = unitPrice * qty
 
   const handleAdd = () => {
     onAddToCart(product, qty, hasWeights ? selectedWeight : undefined, activeFlavorName)
@@ -186,9 +190,66 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
             </div>
           )}
 
+          {/* Quantity tier pricing for carts */}
+          {hasQtyPricing && (
+            <div className="mb-3">
+              <div className="grid grid-cols-3 gap-1 mb-2">
+                {product.quantityPricing!.map(tier => {
+                  const isActive = qty >= tier.minQty &&
+                    !product.quantityPricing!.some(t => t.minQty > tier.minQty && qty >= t.minQty)
+                  return (
+                    <button
+                      key={tier.minQty}
+                      onClick={() => setQty(tier.minQty)}
+                      className="py-1.5 px-1 rounded-lg text-center transition-all border"
+                      style={{
+                        borderColor: isActive ? `${activeProfile.color}50` : 'rgba(255,255,255,0.06)',
+                        backgroundColor: isActive ? `${activeProfile.color}12` : 'rgba(255,255,255,0.02)',
+                        color: isActive ? activeProfile.color : '#6b7280',
+                      }}
+                    >
+                      <div className="text-[10px] font-semibold leading-tight">{tier.label}</div>
+                      <div className="text-[9px] opacity-70">${tier.price}/ea</div>
+                    </button>
+                  )
+                })}
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setQty(Math.max(1, qty - 1))}
+                  className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.08] transition-all"
+                >
+                  <Minus className="w-3 h-3" />
+                </button>
+                <input
+                  type="number"
+                  min={1}
+                  value={qty}
+                  onChange={e => {
+                    const v = parseInt(e.target.value)
+                    if (!isNaN(v) && v >= 1) setQty(v)
+                  }}
+                  className="flex-1 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] text-center text-sm font-medium text-white appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                />
+                <button
+                  onClick={() => setQty(qty + 1)}
+                  className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/[0.08] transition-all"
+                >
+                  <Plus className="w-3 h-3" />
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Price + quantity row */}
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[#39FF14] font-bold text-lg">${totalPrice}</span>
+            <div>
+              <span className="text-[#39FF14] font-bold text-lg">${totalPrice}</span>
+              {hasQtyPricing && (
+                <span className="text-[10px] text-gray-500 ml-1.5">${unitPrice}/ea</span>
+              )}
+            </div>
+            {!hasQtyPricing && (
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setQty(Math.max(1, qty - 1))}
@@ -212,6 +273,7 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
                 <Plus className="w-3 h-3" />
               </button>
             </div>
+            )}
           </div>
 
           {/* Add to cart */}

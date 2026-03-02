@@ -43,7 +43,7 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full py-24">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="mb-8">
+              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="mb-8 md:hidden">
                 <div className="relative inline-flex items-center bg-white/[0.03] rounded-full border border-white/[0.08] p-[3px]">
                   <div
                     className="absolute top-[3px] bottom-[3px] rounded-full bg-[#39FF14]/[0.12] border border-[#39FF14]/30 shadow-[0_0_12px_rgba(57,255,20,0.15)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"

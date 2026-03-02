@@ -83,7 +83,7 @@ export default function Home() {
                   : 'Top-shelf flower, vapes, edibles & concentrates at wholesale prices. Ships anywhere in the US.'}
               </motion.p>
 
-              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }} className="mb-8">
+              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }} className="mb-8 md:hidden">
                 <div className="inline-flex items-center bg-white/[0.04] rounded-xl border border-white/[0.06] p-1">
                   <button
                     onClick={() => setMode('delivery')}

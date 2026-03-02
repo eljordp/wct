@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Clock, Send, MessageSquare, Truck } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, Send, MessageSquare, Truck, Package } from 'lucide-react'
 import { useState } from 'react'
+import { useMode } from '@/context/ModeContext'
 
 export default function Contact() {
+  const { isDelivery } = useMode()
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '', type: 'order' })
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -46,7 +48,9 @@ export default function Contact() {
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">Contact Us</h1>
           <p className="text-lg text-gray-400 max-w-xl mx-auto">
-            Have questions about delivery, products, or your order? We're here to help.
+            {isDelivery
+              ? 'Have questions about delivery, products, or your order? We\'re here to help.'
+              : 'Interested in wholesale pricing, bulk orders, or setting up an account? Reach out.'}
           </p>
         </motion.div>
 
@@ -79,34 +83,69 @@ export default function Contact() {
                     <p className="text-white">(818) 555-0199</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#39FF14]/[0.08] border border-[#39FF14]/15 flex items-center justify-center shrink-0">
-                    <MapPin className="w-4 h-4 text-[#39FF14]" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500">Delivery Zone</p>
-                    <p className="text-white">Santa Barbara to Greater LA</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#39FF14]/[0.08] border border-[#39FF14]/15 flex items-center justify-center shrink-0">
-                    <Clock className="w-4 h-4 text-[#39FF14]" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500">Delivery Hours</p>
-                    <p className="text-white">Daily 10AM–8PM</p>
-                  </div>
-                </div>
+                {isDelivery ? (
+                  <>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#39FF14]/[0.08] border border-[#39FF14]/15 flex items-center justify-center shrink-0">
+                        <MapPin className="w-4 h-4 text-[#39FF14]" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500">Delivery Zone</p>
+                        <p className="text-white">Santa Barbara to Greater LA</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#39FF14]/[0.08] border border-[#39FF14]/15 flex items-center justify-center shrink-0">
+                        <Clock className="w-4 h-4 text-[#39FF14]" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500">Delivery Hours</p>
+                        <p className="text-white">Daily 10AM-8PM</p>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#39FF14]/[0.08] border border-[#39FF14]/15 flex items-center justify-center shrink-0">
+                        <Package className="w-4 h-4 text-[#39FF14]" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500">Shipping</p>
+                        <p className="text-white">Ships anywhere in the US</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#39FF14]/[0.08] border border-[#39FF14]/15 flex items-center justify-center shrink-0">
+                        <Clock className="w-4 h-4 text-[#39FF14]" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500">Response Time</p>
+                        <p className="text-white">Within 24 hours</p>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-[#39FF14]/[0.06] to-[#0e0e0e] border border-[#39FF14]/15">
-              <Truck className="w-6 h-6 text-[#39FF14] mb-3" />
-              <h3 className="font-semibold mb-2">Free Delivery</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                Orders over $75 get free delivery anywhere in our zone. Average delivery time is 45 minutes. Must be 21+ with valid ID.
-              </p>
-            </div>
+            {isDelivery ? (
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-[#39FF14]/[0.06] to-[#0e0e0e] border border-[#39FF14]/15">
+                <Truck className="w-6 h-6 text-[#39FF14] mb-3" />
+                <h3 className="font-semibold mb-2">Free Delivery</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  Orders over $75 get free delivery anywhere in our zone. Average delivery time is 45 minutes. Must be 21+ with valid ID.
+                </p>
+              </div>
+            ) : (
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-[#39FF14]/[0.06] to-[#0e0e0e] border border-[#39FF14]/15">
+                <Package className="w-6 h-6 text-[#39FF14] mb-3" />
+                <h3 className="font-semibold mb-2">Wholesale Accounts</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  $150 minimum order. Tiered pricing on all products. Free shipping on orders over $500. We accept CashApp, Venmo, and wire.
+                </p>
+              </div>
+            )}
           </motion.div>
 
           {/* Contact Form */}
@@ -162,10 +201,22 @@ export default function Contact() {
                     onChange={e => setForm({ ...form, type: e.target.value })}
                     className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#39FF14]/30 focus:border-[#39FF14]/30 transition-all"
                   >
-                    <option value="order" className="bg-[#0e0e0e]">Order Question</option>
-                    <option value="delivery" className="bg-[#0e0e0e]">Delivery Inquiry</option>
-                    <option value="product" className="bg-[#0e0e0e]">Product Question</option>
-                    <option value="other" className="bg-[#0e0e0e]">Other</option>
+                    {isDelivery ? (
+                      <>
+                        <option value="order" className="bg-[#0e0e0e]">Order Question</option>
+                        <option value="delivery" className="bg-[#0e0e0e]">Delivery Inquiry</option>
+                        <option value="product" className="bg-[#0e0e0e]">Product Question</option>
+                        <option value="other" className="bg-[#0e0e0e]">Other</option>
+                      </>
+                    ) : (
+                      <>
+                        <option value="wholesale" className="bg-[#0e0e0e]">Wholesale Inquiry</option>
+                        <option value="pricing" className="bg-[#0e0e0e]">Pricing / Bulk Order</option>
+                        <option value="shipping" className="bg-[#0e0e0e]">Shipping Question</option>
+                        <option value="account" className="bg-[#0e0e0e]">New Account Setup</option>
+                        <option value="other" className="bg-[#0e0e0e]">Other</option>
+                      </>
+                    )}
                   </select>
                 </div>
               </div>
@@ -178,7 +229,7 @@ export default function Contact() {
                   value={form.message}
                   onChange={e => setForm({ ...form, message: e.target.value })}
                   className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white text-sm placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#39FF14]/30 focus:border-[#39FF14]/30 transition-all resize-none"
-                  placeholder="How can we help?"
+                  placeholder={isDelivery ? 'How can we help?' : 'Tell us about your business and what products you\'re interested in.'}
                 />
               </div>
 

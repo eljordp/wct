@@ -115,7 +115,6 @@ export default function Home() {
               className="hidden lg:flex items-center justify-center relative"
             >
               <div className="absolute inset-0 bg-[#39FF14]/[0.04] rounded-full blur-[120px] scale-75" />
-              <img src="/logo.png" alt="West Coast Terpz" className="relative w-full max-w-lg mx-auto drop-shadow-[0_0_80px_rgba(57,255,20,0.12)]" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
             </motion.div>
           </div>
         </div>

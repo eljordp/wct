@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Plus, ShoppingCart, Leaf, Wind, Candy, Gem, Cigarette } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -51,7 +52,7 @@ export default function WholesaleProductCard({ product, index, onAddToCart }: Pr
         </div>
 
         {/* Product visual area */}
-        <div className="relative h-36 overflow-hidden flex items-center justify-center">
+        <Link to={`/product/${product.id.replace(/^w-/, '')}`} className="relative h-36 overflow-hidden flex items-center justify-center block">
           <div
             className="absolute inset-0 opacity-[0.05] transition-all duration-500"
             style={{ background: `radial-gradient(circle at 50% 80%, ${strainInfo.color}, transparent 70%)` }}
@@ -70,12 +71,12 @@ export default function WholesaleProductCard({ product, index, onAddToCart }: Pr
             <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: strainInfo.color }} />
             {strainInfo.label}
           </div>
-        </div>
+        </Link>
 
         {/* Content */}
         <div className="p-4 pt-3 flex-1 flex flex-col border-t border-white/[0.04]">
           <div className="flex items-start justify-between gap-2 mb-0.5">
-            <h3 className="font-semibold text-white text-[13px] leading-tight">{product.name}</h3>
+            <Link to={`/product/${product.id.replace(/^w-/, '')}`} className="font-semibold text-white text-[13px] leading-tight hover:text-[#39FF14] transition-colors">{product.name}</Link>
           </div>
 
           <div className="flex items-center gap-2 mb-1">

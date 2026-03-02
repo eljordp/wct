@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Minus, ShoppingCart, Moon, Sun, Palette, Leaf } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -71,7 +72,7 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
         </div>
 
         {/* Product visual area */}
-        <div className="relative h-36 overflow-hidden flex items-center justify-center">
+        <Link to={`/product/${product.id}`} className="relative h-36 overflow-hidden flex items-center justify-center block">
           <div
             className="absolute inset-0 opacity-[0.05] transition-all duration-500"
             style={{ background: `radial-gradient(circle at 50% 80%, ${activeProfile.color}, transparent 70%)` }}
@@ -100,13 +101,13 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
             <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: activeProfile.color }} />
             {activeProfile.label}
           </div>
-        </div>
+        </Link>
 
         {/* Content */}
         <div className="p-4 pt-3 flex-1 flex flex-col border-t border-white/[0.04]">
           {/* Brand name */}
           <div className="flex items-start justify-between gap-2 mb-0.5">
-            <h3 className="font-semibold text-white text-[13px] leading-tight">{product.name}</h3>
+            <Link to={`/product/${product.id}`} className="font-semibold text-white text-[13px] leading-tight hover:text-[#39FF14] transition-colors">{product.name}</Link>
             {product.brand && (
               <span className="text-[9px] text-gray-600 uppercase tracking-wider shrink-0 mt-0.5">{product.brand}</span>
             )}

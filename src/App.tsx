@@ -13,6 +13,7 @@ import Confirmation from '@/pages/Confirmation'
 import About from '@/pages/About'
 import Contact from '@/pages/Contact'
 import Admin from '@/pages/Admin'
+import ProductDetail from '@/pages/ProductDetail'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -48,6 +49,7 @@ function AppRoutes() {
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
       </Route>
     </Routes>
   )

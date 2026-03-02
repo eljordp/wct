@@ -6,8 +6,9 @@ import ProductCard from '@/components/ProductCard'
 import WholesaleProductCard from '@/components/WholesaleProductCard'
 import { useCart } from '@/context/CartContext'
 import { useMode } from '@/context/ModeContext'
-import { PRODUCTS, CATEGORIES, TERPENE_PROFILES, type TerpeneProfile, type Category } from '@/data/products'
-import { WHOLESALE_PRODUCTS, WHOLESALE_CATEGORIES, type Strain, type WholesaleCategory } from '@/data/wholesaleProducts'
+import { CATEGORIES, TERPENE_PROFILES, type TerpeneProfile, type Category } from '@/data/products'
+import { WHOLESALE_CATEGORIES, type Strain, type WholesaleCategory } from '@/data/wholesaleProducts'
+import { getDeliveryProducts, getWholesaleProducts } from '@/lib/adminStore'
 
 const PROFILE_FILTERS: { name: TerpeneProfile | 'all'; label: string; color: string }[] = [
   { name: 'all', label: 'All', color: '#ffffff' },
@@ -32,6 +33,9 @@ export default function MenuPage() {
   const [strain, setStrain] = useState<Strain | 'all'>('all')
   const { addToCart, addWholesaleToCart } = useCart()
   const { isDelivery } = useMode()
+
+  const PRODUCTS = getDeliveryProducts()
+  const WHOLESALE_PRODUCTS = getWholesaleProducts()
 
   useEffect(() => {
     const cat = searchParams.get('cat')

@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Outlet, useLocation, Navigate } from 'react-router-dom'
 import { ModeProvider, useMode } from '@/context/ModeContext'
 import { CartProvider } from '@/context/CartContext'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import AgeVerification from '@/components/AgeVerification'
 import Landing from '@/pages/Landing'
 import Home from '@/pages/Home'
 import Menu from '@/pages/Menu'
@@ -13,6 +12,7 @@ import Checkout from '@/pages/Checkout'
 import Confirmation from '@/pages/Confirmation'
 import About from '@/pages/About'
 import Contact from '@/pages/Contact'
+import Admin from '@/pages/Admin'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -39,6 +39,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={mode ? <Navigate to="/home" replace /> : <Landing />} />
+      <Route path="/admin" element={<Admin />} />
       <Route element={<Layout />}>
         <Route path="/home" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
@@ -53,17 +54,10 @@ function AppRoutes() {
 }
 
 export default function App() {
-  const [verified, setVerified] = useState(false)
-
   return (
     <BrowserRouter>
       <ModeProvider>
         <CartProvider>
-          <AgeVerification
-            isOpen={!verified}
-            onVerify={() => setVerified(true)}
-            onDeny={() => window.location.href = 'https://google.com'}
-          />
           <AppRoutes />
         </CartProvider>
       </ModeProvider>

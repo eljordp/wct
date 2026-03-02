@@ -4,8 +4,8 @@ import { Truck, ArrowRight, MapPin, Star, ShieldCheck, Leaf, Sparkles, Clock, Fl
 import ProductCard from '@/components/ProductCard'
 import WholesaleProductCard from '@/components/WholesaleProductCard'
 import DeliveryMap from '@/components/DeliveryMap'
-import { PRODUCTS, TERPENE_PROFILES, type TerpeneProfile } from '@/data/products'
-import { WHOLESALE_PRODUCTS } from '@/data/wholesaleProducts'
+import { TERPENE_PROFILES, type TerpeneProfile } from '@/data/products'
+import { getDeliveryProducts, getWholesaleProducts } from '@/lib/adminStore'
 import { useCart } from '@/context/CartContext'
 import { useMode } from '@/context/ModeContext'
 
@@ -22,6 +22,8 @@ export default function Home() {
   const { addToCart, addWholesaleToCart } = useCart()
   const { isDelivery } = useMode()
 
+  const PRODUCTS = getDeliveryProducts()
+  const WHOLESALE_PRODUCTS = getWholesaleProducts()
   const featuredDelivery = PRODUCTS.filter(p => p.category === 'flower').slice(0, 4)
   const featuredWholesale = WHOLESALE_PRODUCTS.filter(p => p.badge).slice(0, 4)
 

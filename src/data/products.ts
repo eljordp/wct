@@ -25,6 +25,7 @@ export interface Product {
   price: number
   thc: string
   description: string
+  image_url?: string
   in_stock: boolean
   badge?: string
   weights?: Record<WeightOption, number>

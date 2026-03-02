@@ -56,7 +56,9 @@ export default function WholesaleProductCard({ product, index, onAddToCart }: Pr
             className="absolute inset-0 opacity-[0.05] transition-all duration-500"
             style={{ background: `radial-gradient(circle at 50% 80%, ${strainInfo.color}, transparent 70%)` }}
           />
-          {(() => {
+          {product.image_url ? (
+            <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
+          ) : (() => {
             const Icon = CATEGORY_ICONS[product.category] || Leaf
             return <Icon className="w-12 h-12" style={{ color: strainInfo.color }} />
           })()}

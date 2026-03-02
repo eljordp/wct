@@ -72,18 +72,22 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
             className="absolute inset-0 opacity-[0.05] transition-all duration-500"
             style={{ background: `radial-gradient(circle at 50% 80%, ${activeProfile.color}, transparent 70%)` }}
           />
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeFlavor ? activeFlavor.name : product.terpene_profile}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="flex items-center justify-center"
-            >
-              <ProfileIcon className="w-12 h-12" style={{ color: activeProfile.color }} />
-            </motion.div>
-          </AnimatePresence>
+          {product.image_url ? (
+            <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
+          ) : (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeFlavor ? activeFlavor.name : product.terpene_profile}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center justify-center"
+              >
+                <ProfileIcon className="w-12 h-12" style={{ color: activeProfile.color }} />
+              </motion.div>
+            </AnimatePresence>
+          )}
           {/* Terpene badge */}
           <div
             className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-semibold border backdrop-blur-sm transition-colors duration-300"

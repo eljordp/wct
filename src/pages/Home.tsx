@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Truck, ArrowRight, MapPin, Star, ShieldCheck, Leaf, Sparkles, Clock, FlaskConical, Package, DollarSign, Layers, Moon, Sun, Palette } from 'lucide-react'
+import { Truck, ArrowRight, MapPin, ShieldCheck, Leaf, Sparkles, Clock, FlaskConical, Package, DollarSign, Layers, Moon, Sun, Palette } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import WholesaleProductCard from '@/components/WholesaleProductCard'
 import DeliveryMap from '@/components/DeliveryMap'
@@ -388,48 +388,6 @@ export default function Home() {
                   </div>
                   <h3 className="font-bold mb-2">{item.title}</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── TESTIMONIALS ─── */}
-      <section className="py-24 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
-            <span className="text-[10px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Reviews</span>
-            <h2 className="text-3xl font-black mt-4 tracking-tight">What Customers Say</h2>
-          </motion.div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {(isDelivery
-              ? [
-                  { quote: 'Fastest delivery I\'ve experienced. Product quality is incredible and the terpene menu makes ordering easy.', name: 'Marcus T.', city: 'Los Angeles', stars: 5 },
-                  { quote: 'Love that they organize by terpene profiles. Found my perfect relaxed strain on the first try. Will never go anywhere else.', name: 'Alyssa R.', city: 'Santa Barbara', stars: 5 },
-                  { quote: 'Ordered at 6PM and it was at my door by 6:40. Lab-tested, beautifully packaged. This is how it should be done.', name: 'Jordan K.', city: 'Malibu', stars: 5 },
-                ]
-              : [
-                  { quote: 'Best wholesale prices I\'ve found. The tiered pricing makes it easy to plan inventory. Great product quality.', name: 'Mike D.', city: 'Denver, CO', stars: 5 },
-                  { quote: 'Fast shipping, discreet packaging, and the products fly off our shelves. WCT is our go-to wholesale supplier.', name: 'Sarah L.', city: 'Austin, TX', stars: 5 },
-                  { quote: 'The pre-rolls and edibles are our best sellers. Customers love the quality and we love the margins.', name: 'James R.', city: 'Phoenix, AZ', stars: 5 },
-                ]
-            ).map((review, i) => (
-              <motion.div
-                key={review.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="p-6 rounded-2xl bg-[#0a0a0a] border border-white/[0.06]"
-              >
-                <div className="flex gap-0.5 mb-4">
-                  {[...Array(review.stars)].map((_, j) => <Star key={j} className="w-3.5 h-3.5 text-[#39FF14] fill-[#39FF14]" />)}
-                </div>
-                <blockquote className="text-sm text-gray-300 leading-relaxed mb-5">"{review.quote}"</blockquote>
-                <div>
-                  <p className="text-xs font-semibold">{review.name}</p>
-                  <p className="text-[10px] text-gray-600">{review.city}</p>
                 </div>
               </motion.div>
             ))}

@@ -142,6 +142,21 @@ export const PRODUCTS: Product[] = [
     weights: { eighth: 40, q: 65, h: 110, oz: 200 },
   },
   {
+    id: 'lean-cup-cart',
+    name: 'Lean Cup Cart',
+    category: 'vapes',
+    terpene_profile: 'relaxed',
+    price: 30,
+    thc: '85%+',
+    description: 'Lean Cup Cart: smooth, syrupy flavor in a premium vape cart. Relaxing effects that hit like the real thing. Clean oil, big clouds, heavy chill.',
+    in_stock: true,
+    quantityPricing: [
+      { minQty: 1, price: 30, label: '1+' },
+      { minQty: 5, price: 25, label: '5+' },
+      { minQty: 10, price: 22, label: '10+' },
+    ],
+  },
+  {
     id: 'seedless-carts',
     name: 'Seedless Carts',
     category: 'vapes',

@@ -167,6 +167,23 @@ export const WHOLESALE_PRODUCTS: WholesaleProduct[] = [
     minOrder: 10,
   },
   {
+    id: 'w-lean-cup-cart',
+    name: 'Lean Cup Cart',
+    category: 'vapes',
+    strain: 'indica',
+    retail: 30,
+    wholesale: [
+      { minQty: 100, price: 18, label: '100+ units' },
+      { minQty: 500, price: 14, label: '500+ units' },
+      { minQty: 1000, price: 11, label: '1000+ units' },
+    ],
+    thc: '85%+',
+    description: 'Lean Cup Cart: smooth, syrupy flavor in a premium vape cart. Relaxing effects that hit like the real thing. High margin product, moves fast.',
+    image_url: '',
+    in_stock: true,
+    minOrder: 100,
+  },
+  {
     id: 'w-seedless-carts',
     name: 'Seedless Carts',
     category: 'vapes',

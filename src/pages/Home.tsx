@@ -43,41 +43,7 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full py-24">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
-                <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass mb-8">
-                  <div className="w-2 h-2 rounded-full bg-[#39FF14] pulse-dot" />
-                  <span className="text-xs font-medium text-gray-300">
-                    {isDelivery ? 'Now delivering \u2022 Order by 8PM' : 'Wholesale orders open \u2022 Ships nationwide'}
-                  </span>
-                </div>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl sm:text-6xl lg:text-[5.5rem] font-black leading-[0.9] mb-8 tracking-tight"
-              >
-                {isDelivery ? (
-                  <>
-                    Premium
-                    <br />
-                    Cannabis
-                    <br />
-                    <span className="gradient-text">Delivered.</span>
-                  </>
-                ) : (
-                  <>
-                    Premium
-                    <br />
-                    Exotic
-                    <br />
-                    <span className="gradient-text">Wholesale.</span>
-                  </>
-                )}
-              </motion.h1>
-
-              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.05, ease: [0.16, 1, 0.3, 1] }} className="mb-6">
+              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="mb-8">
                 <div className="relative inline-flex items-center bg-white/[0.03] rounded-full border border-white/[0.08] p-[3px]">
                   <div
                     className="absolute top-[3px] bottom-[3px] rounded-full bg-[#39FF14]/[0.12] border border-[#39FF14]/30 shadow-[0_0_12px_rgba(57,255,20,0.15)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -106,6 +72,31 @@ export default function Home() {
                   </button>
                 </div>
               </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="text-4xl sm:text-6xl lg:text-[5.5rem] font-black leading-[0.9] mb-8 tracking-tight"
+              >
+                {isDelivery ? (
+                  <>
+                    Premium
+                    <br />
+                    Cannabis
+                    <br />
+                    <span className="gradient-text">Delivered.</span>
+                  </>
+                ) : (
+                  <>
+                    Premium
+                    <br />
+                    Exotic
+                    <br />
+                    <span className="gradient-text">Wholesale.</span>
+                  </>
+                )}
+              </motion.h1>
 
               <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }} className="text-lg text-gray-500 mb-10 max-w-md leading-relaxed">
                 {isDelivery

@@ -20,7 +20,7 @@ const CITIES = ['Santa Barbara', 'Ventura', 'Oxnard', 'Thousand Oaks', 'Malibu',
 
 export default function Home() {
   const { addToCart, addWholesaleToCart } = useCart()
-  const { isDelivery } = useMode()
+  const { isDelivery, setMode } = useMode()
 
   const PRODUCTS = getDeliveryProducts()
   const WHOLESALE_PRODUCTS = getWholesaleProducts()
@@ -83,7 +83,34 @@ export default function Home() {
                   : 'Top-shelf flower, vapes, edibles & concentrates at wholesale prices. Ships anywhere in the US.'}
               </motion.p>
 
-              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }} className="flex flex-col sm:flex-row gap-3 mb-14">
+              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }} className="mb-8">
+                <div className="inline-flex items-center bg-white/[0.04] rounded-xl border border-white/[0.06] p-1">
+                  <button
+                    onClick={() => setMode('delivery')}
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                      isDelivery
+                        ? 'bg-[#39FF14]/15 text-[#39FF14] border border-[#39FF14]/30'
+                        : 'text-gray-500 hover:text-gray-300 border border-transparent'
+                    }`}
+                  >
+                    <Truck className="w-4 h-4" />
+                    Delivery
+                  </button>
+                  <button
+                    onClick={() => setMode('wholesale')}
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                      !isDelivery
+                        ? 'bg-[#39FF14]/15 text-[#39FF14] border border-[#39FF14]/30'
+                        : 'text-gray-500 hover:text-gray-300 border border-transparent'
+                    }`}
+                  >
+                    <Package className="w-4 h-4" />
+                    Wholesale
+                  </button>
+                </div>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }} className="flex flex-col sm:flex-row gap-3 mb-14">
                 <Link to="/menu" className="group inline-flex items-center justify-center gap-2.5 px-10 py-4 bg-[#39FF14] text-black font-bold rounded-xl hover:shadow-[0_0_50px_rgba(57,255,20,0.3)] transition-all duration-500 text-sm">
                   {isDelivery ? 'Browse Menu' : 'Shop Wholesale'} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>

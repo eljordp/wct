@@ -83,26 +83,39 @@ export default function Checkout() {
       existing.unshift(order)
       localStorage.setItem('wct-orders', JSON.stringify(existing))
 
-      // Send order notification via FormSubmit
+      // Send order notification via Resend
       try {
-        await fetch('https://formsubmit.co/ajax/ingrandefrankie@icloud.com', {
+        const itemRows = orderItems.map(i =>
+          `<tr><td style="padding:8px;border-bottom:1px solid #222">${i.name}</td><td style="padding:8px;border-bottom:1px solid #222">${i.detail}</td><td style="padding:8px;border-bottom:1px solid #222;text-align:right">$${i.total.toFixed(2)}</td></tr>`
+        ).join('')
+
+        await fetch('/api/send-email', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            _subject: `New Order ${orderId} — ${isDelivery ? 'Delivery' : 'Wholesale'}`,
-            _template: 'table',
-            order_number: orderId,
-            mode: isDelivery ? 'Delivery' : 'Wholesale',
-            customer_name: form.name,
-            customer_email: form.email,
-            customer_phone: form.phone,
-            address: `${form.street}, ${form.city}, ${form.state} ${form.zip}`,
-            company: form.company || 'N/A',
-            payment_method: form.payment,
-            delivery_window: isDelivery ? form.deliveryWindow : 'N/A',
-            items: orderItems.map(i => `${i.name} — ${i.detail} = $${i.total.toFixed(2)}`).join('\n'),
-            total: `$${total.toFixed(2)}`,
-            notes: form.notes || 'None',
+            subject: `New Order ${orderId} — ${isDelivery ? 'Delivery' : 'Wholesale'}`,
+            replyTo: form.email,
+            html: `
+              <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;background:#0a0a0a;color:#fff;padding:32px;border-radius:16px">
+                <h1 style="color:#39FF14;margin:0 0 8px">New ${isDelivery ? 'Delivery' : 'Wholesale'} Order</h1>
+                <p style="color:#888;margin:0 0 24px">${orderId}</p>
+                <table style="width:100%;margin-bottom:24px">
+                  <tr><td style="color:#888;padding:4px 0">Customer</td><td style="padding:4px 0">${form.name}</td></tr>
+                  <tr><td style="color:#888;padding:4px 0">Email</td><td style="padding:4px 0">${form.email}</td></tr>
+                  <tr><td style="color:#888;padding:4px 0">Phone</td><td style="padding:4px 0">${form.phone}</td></tr>
+                  ${form.company ? `<tr><td style="color:#888;padding:4px 0">Company</td><td style="padding:4px 0">${form.company}</td></tr>` : ''}
+                  <tr><td style="color:#888;padding:4px 0">Address</td><td style="padding:4px 0">${form.street}, ${form.city}, ${form.state} ${form.zip}</td></tr>
+                  <tr><td style="color:#888;padding:4px 0">Payment</td><td style="padding:4px 0">${form.payment}</td></tr>
+                  ${isDelivery ? `<tr><td style="color:#888;padding:4px 0">Delivery</td><td style="padding:4px 0">${form.deliveryWindow}</td></tr>` : ''}
+                  ${form.notes ? `<tr><td style="color:#888;padding:4px 0">Notes</td><td style="padding:4px 0">${form.notes}</td></tr>` : ''}
+                </table>
+                <h3 style="color:#39FF14;margin:0 0 12px">Items</h3>
+                <table style="width:100%;border-collapse:collapse">${itemRows}</table>
+                <div style="margin-top:16px;padding-top:16px;border-top:2px solid #39FF14;text-align:right">
+                  <span style="font-size:24px;font-weight:bold;color:#39FF14">$${total.toFixed(2)}</span>
+                </div>
+              </div>
+            `,
           }),
         })
       } catch {

@@ -13,17 +13,26 @@ export default function Contact() {
     e.preventDefault()
     setSubmitting(true)
     try {
-      await fetch('https://formsubmit.co/ajax/ingrandefrankie@icloud.com', {
+      await fetch('/api/send-email', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          _subject: `WCT Contact — ${form.type}`,
-          _template: 'table',
-          name: form.name,
-          email: form.email,
-          phone: form.phone || 'N/A',
-          inquiry_type: form.type,
-          message: form.message,
+          subject: `WCT Contact — ${form.type}`,
+          replyTo: form.email,
+          html: `
+            <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;background:#0a0a0a;color:#fff;padding:32px;border-radius:16px">
+              <h1 style="color:#39FF14;margin:0 0 24px">New Contact Message</h1>
+              <table style="width:100%">
+                <tr><td style="color:#888;padding:4px 0">Name</td><td style="padding:4px 0">${form.name}</td></tr>
+                <tr><td style="color:#888;padding:4px 0">Email</td><td style="padding:4px 0">${form.email}</td></tr>
+                <tr><td style="color:#888;padding:4px 0">Phone</td><td style="padding:4px 0">${form.phone || 'N/A'}</td></tr>
+                <tr><td style="color:#888;padding:4px 0">Type</td><td style="padding:4px 0">${form.type}</td></tr>
+              </table>
+              <div style="margin-top:20px;padding:16px;background:#111;border-radius:8px;border-left:3px solid #39FF14">
+                <p style="margin:0;color:#ccc;white-space:pre-wrap">${form.message}</p>
+              </div>
+            </div>
+          `,
         }),
       })
       setSubmitted(true)

@@ -92,7 +92,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Link to="/admin" className="text-xs text-gray-700 hover:text-gray-700 cursor-default">&copy; 2026 West Coast Terpz. All rights reserved.</Link>
+          <p className="text-xs text-gray-700"><Link to="/admin" className="text-gray-700 hover:text-gray-700 cursor-default">&copy;</Link> 2026 West Coast Terpz. All rights reserved.</p>
           <p className="text-xs text-gray-700 text-center leading-relaxed max-w-xl">
             {isDelivery
               ? 'Licensed cannabis delivery. Must be 21+ with valid ID. Consume responsibly.'

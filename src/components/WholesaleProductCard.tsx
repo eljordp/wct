@@ -111,7 +111,6 @@ export default function WholesaleProductCard({ product, index, onAddToCart }: Pr
               <span className="text-[#39FF14] font-bold text-lg">${lowestTier.price}</span>
               <span className="text-[10px] text-gray-500 ml-1">/unit</span>
             </div>
-            <span className="text-[10px] text-gray-600 line-through">${product.retail} retail</span>
           </div>
 
           {/* Add to cart */}

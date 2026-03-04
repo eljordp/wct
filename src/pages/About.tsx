@@ -15,7 +15,7 @@ const DELIVERY_VALUES = [
 const WHOLESALE_VALUES = [
   { icon: FlaskConical, title: 'Lab Tested', description: 'Every product is third-party lab tested with full COAs available on request.' },
   { icon: ShieldCheck, title: 'Farm Bill Compliant', description: 'All products comply with the 2018 Farm Bill and contain less than 0.3% Delta-9 THC.' },
-  { icon: DollarSign, title: 'Tiered Pricing', description: 'The more you order, the lower your per-unit cost. Up to 50%+ off retail pricing.' },
+  { icon: DollarSign, title: 'Tiered Pricing', description: 'The more you order, the lower your per-unit cost. Volume pricing available across all products.' },
   { icon: Layers, title: '5 Categories', description: 'Flower, vapes, edibles, concentrates, and pre-rolls — a full product line for your store.' },
   { icon: Package, title: 'Ships Nationwide', description: 'Fast, discreet shipping anywhere in the US. Free shipping on orders over $500.' },
   { icon: Award, title: 'Premium Quality', description: 'Only top-shelf products sourced from trusted cultivators and manufacturers.' },
@@ -94,7 +94,7 @@ export default function About() {
                   ]
                 : [
                     { value: '16+', label: 'Products' },
-                    { value: '50%+', label: 'Off Retail' },
+                    { value: '5', label: 'Categories' },
                     { value: '50', label: 'States' },
                     { value: '21+', label: 'Verified' },
                   ]

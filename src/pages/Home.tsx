@@ -155,7 +155,7 @@ export default function Home() {
                 ]
               : [
                   { value: '16', unit: '+', label: 'Products' },
-                  { value: '50', unit: '%+', label: 'Off Retail' },
+                  { value: '5', unit: '', label: 'Categories' },
                   { value: '100', unit: '%', label: 'Lab Tested' },
                   { value: '$150', unit: '', label: 'Min Order' },
                 ]
@@ -228,7 +228,7 @@ export default function Home() {
             </motion.div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { icon: DollarSign, title: 'Tiered Pricing', desc: 'The more you order, the lower your per-unit cost. Up to 50%+ off retail.' },
+                { icon: DollarSign, title: 'Tiered Pricing', desc: 'The more you order, the lower your per-unit cost. Volume pricing across all products.' },
                 { icon: Package, title: 'Ships Nationwide', desc: 'Fast, discreet shipping anywhere in the US. Free on orders over $500.' },
                 { icon: Layers, title: '5 Categories', desc: 'Flower, vapes, edibles, concentrates, and pre-rolls. Full product line.' },
                 { icon: ShieldCheck, title: 'Lab Tested', desc: 'Every product is third-party lab tested. Full COAs available on request.' },

@@ -335,7 +335,6 @@ function WholesaleControls({ product, onAddToCart }: {
       </div>
 
       <div className="flex items-center gap-3 mb-4">
-        <span className="text-sm text-gray-500">Retail: <span className="line-through">${product.retail}</span></span>
         <span className="text-sm text-gray-500">Min order: {product.minOrder} units</span>
       </div>
 

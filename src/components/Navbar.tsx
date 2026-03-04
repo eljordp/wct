@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingCart, Menu, X, ChevronDown, Truck, Package } from 'lucide-react'
+import { ShoppingCart, Menu, X, ChevronDown, Truck, Package, Shield } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 import { useMode } from '@/context/ModeContext'
 
@@ -158,6 +158,15 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              <Link
+                to="/admin"
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  location.pathname === '/admin' ? 'text-[#39FF14] bg-[#39FF14]/10' : 'text-gray-500 hover:text-gray-300 hover:bg-white/5'
+                }`}
+              >
+                <Shield className="w-3.5 h-3.5" />
+                Admin
+              </Link>
             </div>
 
             <div className="flex items-center gap-3">
@@ -221,7 +230,7 @@ export default function Navbar() {
                   </button>
                 </div>
 
-                {[{ to: '/home', label: 'Home' }, { to: '/menu', label: isDelivery ? 'Menu' : 'Catalog' }, { to: '/about', label: 'About' }, { to: '/contact', label: 'Contact' }].map(l => (
+                {[{ to: '/home', label: 'Home' }, { to: '/menu', label: isDelivery ? 'Menu' : 'Catalog' }, { to: '/about', label: 'About' }, { to: '/contact', label: 'Contact' }, { to: '/admin', label: 'Admin' }].map(l => (
                   <Link key={l.to} to={l.to} onClick={() => setMobileOpen(false)} className={`block py-2.5 px-3 rounded-lg text-sm font-medium ${location.pathname === l.to ? 'text-[#39FF14] bg-[#39FF14]/10' : 'text-gray-400'}`}>
                     {l.label}
                   </Link>

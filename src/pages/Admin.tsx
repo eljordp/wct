@@ -29,17 +29,23 @@ const btnGray =
 // ── Login Component ──
 
 function LoginForm({ onLogin }: { onLogin: () => void }) {
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState(false)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (adminLogin(password)) {
+    setLoading(true)
+    setError('')
+    const result = await adminLogin(email, password)
+    if (result.success) {
       onLogin()
     } else {
-      setError(true)
+      setError(result.error ?? 'Login failed')
       setPassword('')
     }
+    setLoading(false)
   }
 
   return (
@@ -61,18 +67,26 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
             </div>
           </div>
           <form onSubmit={handleSubmit}>
-            <label className={labelClass}>Password</label>
+            <label className={labelClass}>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={e => { setEmail(e.target.value); setError('') }}
+              className={inputClass}
+              placeholder="admin@westcoastterpz.com"
+              autoFocus
+            />
+            <label className={`${labelClass} mt-3`}>Password</label>
             <input
               type="password"
               value={password}
-              onChange={e => { setPassword(e.target.value); setError(false) }}
+              onChange={e => { setPassword(e.target.value); setError('') }}
               className={inputClass}
-              placeholder="Enter admin password"
-              autoFocus
+              placeholder="Enter password"
             />
-            {error && <p className="text-red-400 text-xs mt-2">Wrong password</p>}
-            <button type="submit" className={`${btnGreen} w-full justify-center mt-4`}>
-              <Lock className="w-4 h-4" /> Enter
+            {error && <p className="text-red-400 text-xs mt-2">{error}</p>}
+            <button type="submit" disabled={loading} className={`${btnGreen} w-full justify-center mt-4 ${loading ? 'opacity-60' : ''}`}>
+              <Lock className="w-4 h-4" /> {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
         </div>
@@ -520,7 +534,8 @@ function WholesaleEditor({
 type Tab = 'delivery' | 'wholesale'
 
 export default function Admin() {
-  const [loggedIn, setLoggedIn] = useState(isAdminLoggedIn)
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [checking, setChecking] = useState(true)
   const [tab, setTab] = useState<Tab>('delivery')
   const [delivery, setDelivery] = useState<Product[]>([])
   const [wholesale, setWholesale] = useState<WholesaleProduct[]>([])
@@ -528,6 +543,14 @@ export default function Admin() {
   const [saved, setSaved] = useState(false)
   const [confirmReset, setConfirmReset] = useState(false)
   const [storage, setStorage] = useState(getStorageUsage())
+
+  // Check auth on mount
+  useEffect(() => {
+    isAdminLoggedIn().then(result => {
+      setLoggedIn(result)
+      setChecking(false)
+    })
+  }, [])
 
   useEffect(() => {
     if (loggedIn) {
@@ -557,8 +580,8 @@ export default function Admin() {
     setStorage(getStorageUsage())
   }
 
-  const handleLogout = () => {
-    adminLogout()
+  const handleLogout = async () => {
+    await adminLogout()
     setLoggedIn(false)
   }
 
@@ -631,6 +654,7 @@ export default function Admin() {
     return () => window.removeEventListener('beforeunload', handler)
   }, [dirty])
 
+  if (checking) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><div className="w-6 h-6 border-2 border-[#39FF14]/30 border-t-[#39FF14] rounded-full animate-spin" /></div>
   if (!loggedIn) return <LoginForm onLogin={() => setLoggedIn(true)} />
 
   return (

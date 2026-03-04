@@ -1,38 +1,27 @@
+import { supabase } from '@/lib/supabase'
 import { PRODUCTS, type Product } from '@/data/products'
 import { WHOLESALE_PRODUCTS, type WholesaleProduct } from '@/data/wholesaleProducts'
 
 const KEYS = {
   deliveryProducts: 'wct-admin-delivery-products',
   wholesaleProducts: 'wct-admin-wholesale-products',
-  session: 'wct-admin-session',
 } as const
 
-// ── Auth ──
+// ── Auth (Supabase) ──
 
-export function adminLogin(password: string): boolean {
-  const expected = import.meta.env.VITE_ADMIN_PASS
-  if (!expected || password !== expected) return false
-  localStorage.setItem(
-    KEYS.session,
-    JSON.stringify({ token: crypto.randomUUID(), timestamp: Date.now() }),
-  )
-  return true
+export async function adminLogin(email: string, password: string): Promise<{ success: boolean; error?: string }> {
+  const { error } = await supabase.auth.signInWithPassword({ email, password })
+  if (error) return { success: false, error: error.message }
+  return { success: true }
 }
 
-export function isAdminLoggedIn(): boolean {
-  try {
-    const raw = localStorage.getItem(KEYS.session)
-    if (!raw) return false
-    const session = JSON.parse(raw)
-    const hoursSince = (Date.now() - session.timestamp) / 1000 / 60 / 60
-    return hoursSince < 24
-  } catch {
-    return false
-  }
+export async function isAdminLoggedIn(): Promise<boolean> {
+  const { data: { session } } = await supabase.auth.getSession()
+  return session !== null
 }
 
-export function adminLogout(): void {
-  localStorage.removeItem(KEYS.session)
+export async function adminLogout(): Promise<void> {
+  await supabase.auth.signOut()
 }
 
 // ── Product Read/Write ──

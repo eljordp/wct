@@ -44,7 +44,7 @@ export const WHOLESALE_PRODUCTS: WholesaleProduct[] = [
     name: 'GMO Indoor Exotic Smalls',
     category: 'flower',
     strain: 'indica',
-    retail: 700,
+    retail: 850,
     brand: 'WCT',
     wholesale: [
       { minQty: 10, price: 700, label: '10+ Bags' },
@@ -63,7 +63,7 @@ export const WHOLESALE_PRODUCTS: WholesaleProduct[] = [
     name: 'OFace',
     category: 'flower',
     strain: 'hybrid',
-    retail: 1000,
+    retail: 1200,
     wholesale: [
       { minQty: 10, price: 1000, label: '10+ Bags' },
       { minQty: 50, price: 850, label: '50+ Bags' },
@@ -81,7 +81,7 @@ export const WHOLESALE_PRODUCTS: WholesaleProduct[] = [
     name: 'Gushers',
     category: 'flower',
     strain: 'hybrid',
-    retail: 1150,
+    retail: 1400,
     wholesale: [
       { minQty: 10, price: 1150, label: '10+ Bags' },
       { minQty: 50, price: 950, label: '50+ Bags' },
@@ -99,7 +99,7 @@ export const WHOLESALE_PRODUCTS: WholesaleProduct[] = [
     name: 'Sherblato',
     category: 'flower',
     strain: 'hybrid',
-    retail: 1150,
+    retail: 1400,
     wholesale: [
       { minQty: 10, price: 1150, label: '10+ Bags' },
       { minQty: 50, price: 950, label: '50+ Bags' },
@@ -117,7 +117,7 @@ export const WHOLESALE_PRODUCTS: WholesaleProduct[] = [
     name: 'Sakura',
     category: 'flower',
     strain: 'sativa',
-    retail: 1300,
+    retail: 1550,
     wholesale: [
       { minQty: 10, price: 1300, label: '10+ Bags' },
       { minQty: 50, price: 1100, label: '50+ Bags' },
@@ -135,7 +135,7 @@ export const WHOLESALE_PRODUCTS: WholesaleProduct[] = [
     name: 'LCG',
     category: 'flower',
     strain: 'indica',
-    retail: 1300,
+    retail: 1550,
     wholesale: [
       { minQty: 10, price: 1300, label: '10+ Bags' },
       { minQty: 50, price: 1100, label: '50+ Bags' },
@@ -153,7 +153,7 @@ export const WHOLESALE_PRODUCTS: WholesaleProduct[] = [
     name: 'Wendy',
     category: 'flower',
     strain: 'sativa',
-    retail: 1500,
+    retail: 1800,
     wholesale: [
       { minQty: 10, price: 1500, label: '10+ Bags' },
       { minQty: 50, price: 1250, label: '50+ Bags' },
@@ -172,7 +172,7 @@ export const WHOLESALE_PRODUCTS: WholesaleProduct[] = [
     name: 'Lean Cup Cart',
     category: 'vapes',
     strain: 'indica',
-    retail: 18,
+    retail: 25,
     wholesale: [
       { minQty: 100, price: 18, label: '100+ units' },
       { minQty: 500, price: 14, label: '500+ units' },
@@ -189,7 +189,7 @@ export const WHOLESALE_PRODUCTS: WholesaleProduct[] = [
     name: 'Seedless Carts',
     category: 'vapes',
     strain: 'hybrid',
-    retail: 18,
+    retail: 25,
     wholesale: [
       { minQty: 100, price: 18, label: '100+ units' },
       { minQty: 500, price: 14, label: '500+ units' },
@@ -208,5 +208,5 @@ export function getWholesaleUnitPrice(product: WholesaleProduct, quantity: numbe
   for (const tier of tiers) {
     if (quantity >= tier.minQty) return tier.price
   }
-  return product.wholesale[0].price
+  return product.retail
 }

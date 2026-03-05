@@ -35,11 +35,16 @@ export function getDeliveryProducts(): Product[] {
 }
 
 export function getWholesaleProducts(): WholesaleProduct[] {
+  let products: WholesaleProduct[]
   try {
     const raw = localStorage.getItem(KEYS.wholesaleProducts)
-    if (raw) return JSON.parse(raw) as WholesaleProduct[]
-  } catch { /* fall through */ }
-  return WHOLESALE_PRODUCTS
+    products = raw ? JSON.parse(raw) as WholesaleProduct[] : WHOLESALE_PRODUCTS
+  } catch { products = WHOLESALE_PRODUCTS }
+  // Keep retail in sync with the base wholesale tier price
+  for (const p of products) {
+    if (p.wholesale.length) p.retail = p.wholesale[0].price
+  }
+  return products
 }
 
 export function saveDeliveryProducts(products: Product[]): void {
@@ -47,6 +52,10 @@ export function saveDeliveryProducts(products: Product[]): void {
 }
 
 export function saveWholesaleProducts(products: WholesaleProduct[]): void {
+  // Sync retail to base wholesale tier price before saving
+  for (const p of products) {
+    if (p.wholesale.length) p.retail = p.wholesale[0].price
+  }
   localStorage.setItem(KEYS.wholesaleProducts, JSON.stringify(products))
 }
 

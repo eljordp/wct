@@ -151,7 +151,7 @@ export default function Contact() {
                 <Package className="w-6 h-6 text-[#39FF14] mb-3" />
                 <h3 className="font-semibold mb-2">Wholesale Accounts</h3>
                 <p className="text-sm text-gray-400 leading-relaxed">
-                  $150 minimum order. Tiered pricing on all products. Free shipping on orders over $500. We accept CashApp, Venmo, and wire.
+                  $80 minimum order. Tiered pricing on all products. Free shipping on orders over $500. We accept CashApp, Venmo, and wire.
                 </p>
               </div>
             )}

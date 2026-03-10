@@ -10,7 +10,7 @@ export default function CartPage() {
   const { items, updateQuantity, removeFromCart, total, itemCount, getKey } = useCart()
   const { isDelivery } = useMode()
 
-  const MIN_ORDER = 150
+  const MIN_ORDER = 80
   const modeItems = items.filter(i => i.mode === (isDelivery ? 'delivery' : 'wholesale'))
   const modeTotal = modeItems.reduce((sum, i) => sum + getItemPrice(i) * i.quantity, 0)
   const modeItemCount = modeItems.reduce((sum, i) => sum + i.quantity, 0)

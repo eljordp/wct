@@ -109,7 +109,7 @@ export default function Home() {
                   {isDelivery ? 'Browse Menu' : 'Shop Wholesale'} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
                 <Link to="/menu" className="inline-flex items-center justify-center gap-2 px-8 py-4 glass text-white font-medium rounded-xl hover:bg-white/[0.06] transition-all text-sm">
-                  $150 Minimum
+                  $80 Minimum
                 </Link>
               </motion.div>
 
@@ -151,13 +151,13 @@ export default function Home() {
                   { value: '45', unit: 'min', label: 'Avg Delivery' },
                   { value: '100', unit: 'mi', label: 'Coastline' },
                   { value: '100', unit: '%', label: 'Lab Tested' },
-                  { value: '$150', unit: '', label: 'Min Order' },
+                  { value: '$80', unit: '', label: 'Min Order' },
                 ]
               : [
                   { value: '16', unit: '+', label: 'Products' },
                   { value: '5', unit: '', label: 'Categories' },
                   { value: '100', unit: '%', label: 'Lab Tested' },
-                  { value: '$150', unit: '', label: 'Min Order' },
+                  { value: '$80', unit: '', label: 'Min Order' },
                 ]
             ).map((stat, i) => (
               <motion.div
@@ -370,12 +370,12 @@ export default function Home() {
             {(isDelivery
               ? [
                   { step: '01', icon: ShieldCheck, title: 'Verify Your ID', desc: 'Quick 21+ ID verification. Upload your ID and get approved to shop.' },
-                  { step: '02', icon: Sparkles, title: 'Browse & Order', desc: 'Explore our terpene-focused menu. Find your vibe, build your order ($150 min).' },
+                  { step: '02', icon: Sparkles, title: 'Browse & Order', desc: 'Explore our terpene-focused menu. Find your vibe, build your order ($80 min).' },
                   { step: '03', icon: Truck, title: 'Fast Delivery', desc: 'Delivered to your door in ~45 minutes. Discreet packaging, real-time tracking.' },
                 ]
               : [
                   { step: '01', icon: Package, title: 'Browse Catalog', desc: 'Explore our full wholesale catalog with tiered pricing across 5 categories.' },
-                  { step: '02', icon: DollarSign, title: 'Build Your Order', desc: 'Add products to your cart. $150 minimum order. Bigger orders = better prices.' },
+                  { step: '02', icon: DollarSign, title: 'Build Your Order', desc: 'Add products to your cart. $80 minimum order. Bigger orders = better prices.' },
                   { step: '03', icon: Truck, title: 'We Ship to You', desc: 'Pay via CashApp, Venmo, or wire. We ship discreetly to your door.' },
                 ]
             ).map((item, i) => (

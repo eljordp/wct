@@ -48,14 +48,14 @@ export default function Navbar() {
         {isDelivery ? (
           <>
             <Truck className="w-3.5 h-3.5 hidden sm:block" />
-            <span className="hidden sm:inline">FREE DELIVERY &bull; $150 Minimum &bull; Santa Barbara to Greater LA</span>
-            <span className="sm:hidden">FREE DELIVERY &bull; $150 Min &bull; SB to LA</span>
+            <span className="hidden sm:inline">FREE DELIVERY &bull; $80 Minimum &bull; Santa Barbara to Greater LA</span>
+            <span className="sm:hidden">FREE DELIVERY &bull; $80 Min &bull; SB to LA</span>
           </>
         ) : (
           <>
             <Package className="w-3.5 h-3.5 hidden sm:block" />
-            <span className="hidden sm:inline">FREE SHIPPING $500+ &bull; $150 Minimum &bull; Ships Anywhere in the US</span>
-            <span className="sm:hidden">FREE SHIP $500+ &bull; $150 Min &bull; Ships US</span>
+            <span className="hidden sm:inline">FREE SHIPPING $500+ &bull; $80 Minimum &bull; Ships Anywhere in the US</span>
+            <span className="sm:hidden">FREE SHIP $500+ &bull; $80 Min &bull; Ships US</span>
           </>
         )}
       </div>

@@ -13,7 +13,7 @@ import {
   getDeliveryProducts, getWholesaleProducts,
   saveDeliveryProducts, saveWholesaleProducts,
   resetDeliveryProducts, resetWholesaleProducts,
-  compressImage, getStorageUsage,
+  compressImage, getStorageUsage, seedSupabase, syncFromSupabase,
 } from '@/lib/adminStore'
 
 // ── Styles ──
@@ -554,16 +554,21 @@ export default function Admin() {
 
   useEffect(() => {
     if (loggedIn) {
-      setDelivery(getDeliveryProducts())
-      setWholesale(getWholesaleProducts())
+      // Seed Supabase if empty (requires auth), then sync back to localStorage
+      seedSupabase().then(() => syncFromSupabase()).then(() => {
+        setDelivery(getDeliveryProducts())
+        setWholesale(getWholesaleProducts())
+      })
     }
   }, [loggedIn])
 
   const markDirty = () => { setDirty(true); setSaved(false) }
 
-  const handleSave = () => {
-    saveDeliveryProducts(delivery)
-    saveWholesaleProducts(wholesale)
+  const handleSave = async () => {
+    await Promise.all([
+      saveDeliveryProducts(delivery),
+      saveWholesaleProducts(wholesale),
+    ])
     setDirty(false)
     setSaved(true)
     setStorage(getStorageUsage())

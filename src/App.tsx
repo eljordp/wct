@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Outlet, useLocation, Navigate } from 'react-router-dom'
 import { ModeProvider, useMode } from '@/context/ModeContext'
 import { CartProvider } from '@/context/CartContext'
+import { syncFromSupabase } from '@/lib/adminStore'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Landing from '@/pages/Landing'
@@ -56,6 +57,11 @@ function AppRoutes() {
 }
 
 export default function App() {
+  useEffect(() => {
+    // Sync products from Supabase into localStorage cache
+    syncFromSupabase()
+  }, [])
+
   return (
     <BrowserRouter>
       <ModeProvider>

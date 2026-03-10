@@ -6,6 +6,7 @@ import { useCart, getItemPrice } from '@/context/CartContext'
 import { useMode } from '@/context/ModeContext'
 import { getWholesaleUnitPrice } from '@/data/wholesaleProducts'
 import { WEIGHT_OPTIONS } from '@/data/products'
+import { submitOrder } from '@/lib/adminStore'
 
 const weightLabel = (key: string) => {
   const opt = WEIGHT_OPTIONS.find(w => w.value === key)
@@ -74,11 +75,11 @@ export default function Checkout() {
         }
       })
 
-      // Save order to localStorage
+      // Save order to Supabase + localStorage
       const order = {
         id: orderId,
         date: new Date().toISOString(),
-        mode: isDelivery ? 'delivery' : 'wholesale',
+        mode: isDelivery ? 'delivery' as const : 'wholesale' as const,
         customer: { name: form.name, email: form.email, phone: form.phone },
         address: { street: form.street, city: form.city, state: form.state, zip: form.zip },
         company: form.company,
@@ -89,6 +90,25 @@ export default function Checkout() {
         total,
       }
 
+      // Save to Supabase
+      await submitOrder({
+        orderNumber: orderId,
+        mode: order.mode,
+        customerName: form.name,
+        customerEmail: form.email,
+        customerPhone: form.phone,
+        address: `${form.street}, ${form.state}`,
+        city: form.city,
+        zip: form.zip,
+        deliveryWindow: isDelivery ? form.deliveryWindow : undefined,
+        deliveryNotes: form.notes || undefined,
+        paymentMethod: form.payment,
+        subtotal: total,
+        total,
+        items: orderItems,
+      })
+
+      // Also keep in localStorage as backup
       const existing = JSON.parse(localStorage.getItem('wct-orders') || '[]')
       existing.unshift(order)
       localStorage.setItem('wct-orders', JSON.stringify(existing))

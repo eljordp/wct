@@ -29,17 +29,17 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-sm">{isDelivery ? 'Menu' : 'Catalog'}</h4>
             <div className="space-y-2.5 text-sm">
-              <Link to="/menu" className="block text-gray-500 hover:text-[#39FF14] transition-colors">
+              <Link to="/menu" className="block text-gray-400 hover:text-[#39FF14] transition-colors">
                 {isDelivery ? 'Full Menu' : 'All Products'}
               </Link>
-              <Link to="/menu?cat=flower" className="block text-gray-500 hover:text-[#39FF14] transition-colors">Flower</Link>
-              <Link to="/menu?cat=vapes" className="block text-gray-500 hover:text-[#39FF14] transition-colors">
+              <Link to="/menu?cat=flower" className="block text-gray-400 hover:text-[#39FF14] transition-colors">Flower</Link>
+              <Link to="/menu?cat=vapes" className="block text-gray-400 hover:text-[#39FF14] transition-colors">
                 {isDelivery ? 'Carts' : 'Vapes'}
               </Link>
               {!isDelivery && (
                 <>
-                  <Link to="/menu?cat=edibles" className="block text-gray-500 hover:text-[#39FF14] transition-colors">Edibles</Link>
-                  <Link to="/menu?cat=concentrates" className="block text-gray-500 hover:text-[#39FF14] transition-colors">Concentrates</Link>
+                  <Link to="/menu?cat=edibles" className="block text-gray-400 hover:text-[#39FF14] transition-colors">Edibles</Link>
+                  <Link to="/menu?cat=concentrates" className="block text-gray-400 hover:text-[#39FF14] transition-colors">Concentrates</Link>
                 </>
               )}
             </div>
@@ -48,14 +48,14 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-sm">Company</h4>
             <div className="space-y-2.5 text-sm">
-              <Link to="/about" className="block text-gray-500 hover:text-[#39FF14] transition-colors">About Us</Link>
-              <Link to="/contact" className="block text-gray-500 hover:text-[#39FF14] transition-colors">Contact</Link>
+              <Link to="/about" className="block text-gray-400 hover:text-[#39FF14] transition-colors">About Us</Link>
+              <Link to="/contact" className="block text-gray-400 hover:text-[#39FF14] transition-colors">Contact</Link>
             </div>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4 text-sm">{isDelivery ? 'Delivery Zone' : 'Shipping'}</h4>
-            <div className="space-y-3 text-sm text-gray-500">
+            <div className="space-y-3 text-sm text-gray-400">
               {isDelivery ? (
                 <>
                   <div className="flex items-center gap-2.5">
@@ -92,8 +92,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-700"><Link to="/admin" className="text-gray-700 hover:text-gray-700 cursor-default">&copy;</Link> 2026 West Coast Terpz. All rights reserved.</p>
-          <p className="text-xs text-gray-700 text-center leading-relaxed max-w-xl">
+          <p className="text-xs text-gray-500"><Link to="/admin" className="text-gray-500 hover:text-gray-500 cursor-default">&copy;</Link> 2026 West Coast Terpz. All rights reserved.</p>
+          <p className="text-xs text-gray-500 text-center leading-relaxed max-w-xl">
             {isDelivery
               ? 'Licensed cannabis delivery. Must be 21+ with valid ID. Consume responsibly.'
               : 'All products comply with the 2018 Farm Bill. Must be 21+ to purchase. Wholesale accounts only.'}

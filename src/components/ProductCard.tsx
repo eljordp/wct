@@ -109,7 +109,7 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
           <div className="flex items-start justify-between gap-2 mb-0.5">
             <Link to={`/product/${product.id}`} className="font-semibold text-white text-[13px] leading-tight hover:text-[#39FF14] transition-colors">{product.name}</Link>
             {product.brand && (
-              <span className="text-[9px] text-gray-600 uppercase tracking-wider shrink-0 mt-0.5">{product.brand}</span>
+              <span className="text-[10px] text-gray-400 uppercase tracking-wider shrink-0 mt-0.5">{product.brand}</span>
             )}
           </div>
 
@@ -126,14 +126,14 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
                 <p className="text-xs font-medium mb-1" style={{ color: activeProfile.color }}>{activeFlavorName}</p>
               ) : (
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[10px] text-gray-600 uppercase tracking-wider">{product.category}</span>
+                  <span className="text-[11px] text-gray-400 uppercase tracking-wider">{product.category}</span>
                 </div>
               )}
             </motion.div>
           </AnimatePresence>
 
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[10px] text-gray-600">THC {activeThc}</span>
+            <span className="text-[11px] text-gray-400">THC {activeThc}</span>
           </div>
 
           {/* Description */}
@@ -144,7 +144,7 @@ export default function ProductCard({ product, index, onAddToCart }: Props) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
-              className="text-[11px] text-gray-500 leading-relaxed mb-3 line-clamp-2 flex-1"
+              className="text-[12px] text-gray-300 leading-relaxed mb-3 line-clamp-2 flex-1"
             >
               {activeDescription}
             </motion.p>

@@ -393,7 +393,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-[#0a0a0a]" />
             <div className="relative z-10">
               <h2 className="text-3xl sm:text-5xl font-black mb-5 tracking-tight text-white">Ready to order?</h2>
-              <p className="text-white/60 mb-10 max-w-md mx-auto text-sm leading-relaxed">
+              <p className="text-white/70 mb-10 max-w-md mx-auto text-sm leading-relaxed">
                 {isDelivery
                   ? 'Premium cannabis delivered anywhere from Santa Barbara to Greater Los Angeles. Free delivery on all orders.'
                   : 'Premium wholesale products shipped anywhere in the US. Free shipping on orders over $500.'}

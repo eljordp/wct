@@ -80,15 +80,15 @@ export default function WholesaleProductCard({ product, index, onAddToCart }: Pr
           </div>
 
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[11px] text-gray-500 uppercase tracking-wider">{product.category}</span>
+            <span className="text-[11px] text-gray-400 uppercase tracking-wider">{product.category}</span>
           </div>
 
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[10px] text-gray-600">THC {product.thc}</span>
-            <span className="text-[10px] text-gray-600">&bull; Min. {product.minOrder} units</span>
+            <span className="text-[11px] text-gray-400">THC {product.thc}</span>
+            <span className="text-[11px] text-gray-400">&bull; Min. {product.minOrder} units</span>
           </div>
 
-          <p className="text-[12px] text-gray-400 leading-relaxed mb-3 line-clamp-2 flex-1">
+          <p className="text-[12px] text-gray-300 leading-relaxed mb-3 line-clamp-2 flex-1">
             {product.description}
           </p>
 
@@ -109,7 +109,7 @@ export default function WholesaleProductCard({ product, index, onAddToCart }: Pr
           <div className="flex items-center justify-between mb-3">
             <div>
               <span className="text-[#39FF14] font-bold text-lg">${lowestTier.price}</span>
-              <span className="text-[10px] text-gray-500 ml-1">/unit</span>
+              <span className="text-[10px] text-gray-400 ml-1">/unit</span>
             </div>
           </div>
 

@@ -19,7 +19,7 @@ export default function Footer() {
                 </span>
               </div>
             </div>
-            <p className="text-sm text-gray-500 leading-relaxed">
+            <p className="text-sm text-gray-400 leading-relaxed">
               {isDelivery
                 ? 'Premium cannabis delivery from Santa Barbara to Greater Los Angeles. Curated terpene-focused menus.'
                 : 'Premium wholesale cannabis products shipped nationwide. Tiered pricing for bulk orders.'}

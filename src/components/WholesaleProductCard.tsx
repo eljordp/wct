@@ -80,7 +80,7 @@ export default function WholesaleProductCard({ product, index, onAddToCart }: Pr
           </div>
 
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] text-gray-600 uppercase tracking-wider">{product.category}</span>
+            <span className="text-[11px] text-gray-500 uppercase tracking-wider">{product.category}</span>
           </div>
 
           <div className="flex items-center gap-2 mb-2">
@@ -88,7 +88,7 @@ export default function WholesaleProductCard({ product, index, onAddToCart }: Pr
             <span className="text-[10px] text-gray-600">&bull; Min. {product.minOrder} units</span>
           </div>
 
-          <p className="text-[11px] text-gray-500 leading-relaxed mb-3 line-clamp-2 flex-1">
+          <p className="text-[12px] text-gray-400 leading-relaxed mb-3 line-clamp-2 flex-1">
             {product.description}
           </p>
 
@@ -99,7 +99,7 @@ export default function WholesaleProductCard({ product, index, onAddToCart }: Pr
                 key={tier.minQty}
                 className="text-center py-1.5 rounded-lg border border-white/[0.06] bg-white/[0.02]"
               >
-                <div className="text-[9px] text-gray-500 font-medium">{tier.label}</div>
+                <div className="text-[10px] text-gray-400 font-medium">{tier.label}</div>
                 <div className="text-[11px] font-bold text-[#39FF14]">${tier.price}</div>
               </div>
             ))}

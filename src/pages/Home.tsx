@@ -98,7 +98,7 @@ export default function Home() {
                 )}
               </motion.h1>
 
-              <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }} className="text-lg text-gray-500 mb-10 max-w-md leading-relaxed">
+              <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }} className="text-lg text-gray-400 mb-10 max-w-md leading-relaxed">
                 {isDelivery
                   ? 'Terpene-curated menus delivered to your door. Santa Barbara to Greater Los Angeles.'
                   : 'Top-shelf flower, vapes, edibles & concentrates at wholesale prices. Ships anywhere in the US.'}
@@ -172,7 +172,7 @@ export default function Home() {
                   <span className="gradient-text">{stat.value}</span>
                   <span className="text-[#39FF14]/60 text-xl">{stat.unit}</span>
                 </div>
-                <div className="text-[10px] text-gray-600 uppercase tracking-[0.15em] mt-1 font-medium">{stat.label}</div>
+                <div className="text-[11px] text-gray-500 uppercase tracking-[0.15em] mt-1 font-medium">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -181,13 +181,12 @@ export default function Home() {
 
       {/* ─── TERPENE PROFILES (delivery) / WHOLESALE PERKS (wholesale) ─── */}
       {isDelivery ? (
-        <section className="py-16 sm:py-28 px-4 relative overflow-hidden">
-          <div className="orb absolute top-[50%] left-[80%] w-[500px] h-[500px] rounded-full bg-[#39FF14]/[0.02] blur-[150px]" />
+        <section className="py-16 sm:py-28 px-4 relative overflow-hidden bg-[#fafafa]">
           <div className="relative max-w-7xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 sm:mb-16">
-              <span className="text-[10px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Find Your Vibe</span>
-              <h2 className="text-3xl sm:text-5xl font-black mt-4 tracking-tight">Shop by Terpene Profile</h2>
-              <p className="text-gray-500 mt-4 max-w-lg mx-auto text-sm leading-relaxed">Every product is categorized by its terpene profile so you find exactly the experience you want.</p>
+              <span className="text-[11px] font-semibold text-[#39FF14] uppercase tracking-[0.25em]">Find Your Vibe</span>
+              <h2 className="text-3xl sm:text-5xl font-black mt-4 tracking-tight text-[#0a0a0a]">Shop by Terpene Profile</h2>
+              <p className="text-gray-600 mt-4 max-w-lg mx-auto text-sm leading-relaxed">Every product is categorized by its terpene profile so you find exactly the experience you want.</p>
             </motion.div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {TERPENE_CARDS.map(({ profile, icon: Icon }, i) => {
@@ -196,19 +195,18 @@ export default function Home() {
                   <motion.div key={profile} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
                     <Link
                       to={`/menu?profile=${profile}`}
-                      className="card-hover block relative p-5 sm:p-8 rounded-2xl bg-[#0a0a0a] border border-white/[0.06] transition-all text-center group overflow-hidden"
+                      className="card-hover block relative p-5 sm:p-8 rounded-2xl bg-white border border-gray-200 shadow-sm transition-all text-center group overflow-hidden"
                     >
-                      <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${info.color}50, transparent)` }} />
                       <div
                         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        style={{ background: `radial-gradient(circle at 50% 60%, ${info.color}08, transparent 70%)` }}
+                        style={{ background: `radial-gradient(circle at 50% 60%, ${info.color}10, transparent 70%)` }}
                       />
                       <div className="relative z-10">
                         <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4" style={{ backgroundColor: `${info.color}15` }}>
                           <Icon className="w-6 h-6" style={{ color: info.color }} />
                         </div>
                         <h3 className="font-bold text-base mb-1.5" style={{ color: info.color }}>{info.label}</h3>
-                        <p className="text-[11px] text-gray-500 leading-relaxed">{info.description}</p>
+                        <p className="text-[13px] text-gray-600 leading-relaxed">{info.description}</p>
                       </div>
                     </Link>
                   </motion.div>
@@ -218,13 +216,12 @@ export default function Home() {
           </div>
         </section>
       ) : (
-        <section className="py-16 sm:py-28 px-4 relative overflow-hidden">
-          <div className="orb absolute top-[50%] left-[80%] w-[500px] h-[500px] rounded-full bg-[#39FF14]/[0.02] blur-[150px]" />
+        <section className="py-16 sm:py-28 px-4 relative overflow-hidden bg-[#fafafa]">
           <div className="relative max-w-7xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 sm:mb-16">
-              <span className="text-[10px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Why Wholesale</span>
-              <h2 className="text-3xl sm:text-5xl font-black mt-4 tracking-tight">Built for Your Business</h2>
-              <p className="text-gray-500 mt-4 max-w-lg mx-auto text-sm leading-relaxed">Tiered pricing, premium products, and fast shipping — everything you need to stock your shelves.</p>
+              <span className="text-[11px] font-semibold text-[#39FF14] uppercase tracking-[0.25em]">Why Wholesale</span>
+              <h2 className="text-3xl sm:text-5xl font-black mt-4 tracking-tight text-[#0a0a0a]">Built for Your Business</h2>
+              <p className="text-gray-600 mt-4 max-w-lg mx-auto text-sm leading-relaxed">Tiered pricing, premium products, and fast shipping — everything you need to stock your shelves.</p>
             </motion.div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[
@@ -234,14 +231,13 @@ export default function Home() {
                 { icon: ShieldCheck, title: 'Lab Tested', desc: 'Every product is third-party lab tested. Full COAs available on request.' },
               ].map((item, i) => (
                 <motion.div key={item.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
-                  <div className="card-hover block relative p-5 sm:p-8 rounded-2xl bg-[#0a0a0a] border border-white/[0.06] transition-all text-center group overflow-hidden h-full">
-                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#39FF14]/30 to-transparent" />
+                  <div className="card-hover block relative p-5 sm:p-8 rounded-2xl bg-white border border-gray-200 shadow-sm transition-all text-center group overflow-hidden h-full">
                     <div className="relative z-10">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#39FF14]/[0.08] border border-[#39FF14]/15 mb-4">
-                        <item.icon className="w-5 h-5 text-[#39FF14]" />
+                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#39FF14]/[0.1] mb-4">
+                        <item.icon className="w-5 h-5 text-[#22b80a]" />
                       </div>
-                      <h3 className="font-bold text-base mb-1.5 text-[#39FF14]">{item.title}</h3>
-                      <p className="text-[11px] text-gray-500 leading-relaxed">{item.desc}</p>
+                      <h3 className="font-bold text-base mb-1.5 text-[#0a0a0a]">{item.title}</h3>
+                      <p className="text-[13px] text-gray-600 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -257,10 +253,10 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-end justify-between mb-10 sm:mb-14">
             <div>
-              <span className="text-[10px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Top Picks</span>
+              <span className="text-[11px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Top Picks</span>
               <h2 className="text-3xl sm:text-4xl font-black mt-3 tracking-tight">Featured Products</h2>
             </div>
-            <Link to="/menu" className="hidden sm:inline-flex items-center gap-2 text-sm text-gray-500 font-medium hover:text-[#39FF14] transition-colors group">
+            <Link to="/menu" className="hidden sm:inline-flex items-center gap-2 text-sm text-gray-400 font-medium hover:text-[#39FF14] transition-colors group">
               View All <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </motion.div>
@@ -285,13 +281,13 @@ export default function Home() {
           <div className="relative max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                <span className="text-[10px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Delivery Zone</span>
+                <span className="text-[11px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Delivery Zone</span>
                 <h2 className="text-3xl sm:text-4xl font-black mt-4 mb-6 tracking-tight">
                   100 Miles of
                   <br />
                   <span className="gradient-text">California Coast</span>
                 </h2>
-                <p className="text-gray-500 mb-10 leading-relaxed text-sm">
+                <p className="text-gray-400 mb-10 leading-relaxed text-sm">
                   From Santa Barbara down the coast through Ventura, Malibu, and into the Greater Los Angeles area. Premium cannabis delivered to your door.
                 </p>
 
@@ -330,11 +326,11 @@ export default function Home() {
           <div className="orb absolute top-[30%] left-[20%] w-[600px] h-[600px] rounded-full bg-[#39FF14]/[0.02] blur-[150px]" />
           <div className="relative max-w-5xl mx-auto text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <span className="text-[10px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Shipping</span>
+              <span className="text-[11px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Shipping</span>
               <h2 className="text-3xl sm:text-4xl font-black mt-4 mb-6 tracking-tight">
                 Ships Anywhere in the <span className="gradient-text">United States</span>
               </h2>
-              <p className="text-gray-500 mb-10 max-w-2xl mx-auto text-sm leading-relaxed">
+              <p className="text-gray-400 mb-10 max-w-2xl mx-auto text-sm leading-relaxed">
                 All wholesale orders are shipped discreetly via priority mail. Free shipping on orders over $500. Most orders ship within 1-2 business days.
               </p>
               <div className="grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10">
@@ -346,7 +342,7 @@ export default function Home() {
                   <div key={item.label} className="p-6 rounded-2xl bg-[#0a0a0a] border border-white/[0.06]">
                     <item.icon className="w-6 h-6 text-[#39FF14] mx-auto mb-3" />
                     <div className="text-xl font-black text-[#39FF14]">{item.value}</div>
-                    <div className="text-[10px] text-gray-500 uppercase tracking-wider mt-1">{item.label}</div>
+                    <div className="text-[11px] text-gray-400 uppercase tracking-wider mt-1">{item.label}</div>
                   </div>
                 ))}
               </div>
@@ -359,12 +355,11 @@ export default function Home() {
       )}
 
       {/* ─── HOW IT WORKS ─── */}
-      <section className="py-16 sm:py-28 px-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#070707] to-[#050505]" />
+      <section className="py-16 sm:py-28 px-4 relative bg-[#fafafa]">
         <div className="relative max-w-5xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 sm:mb-16">
-            <span className="text-[10px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Simple Process</span>
-            <h2 className="text-3xl sm:text-4xl font-black mt-4 tracking-tight">How It Works</h2>
+            <span className="text-[11px] font-semibold text-[#39FF14] uppercase tracking-[0.25em]">Simple Process</span>
+            <h2 className="text-3xl sm:text-4xl font-black mt-4 tracking-tight text-[#0a0a0a]">How It Works</h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {(isDelivery
@@ -380,14 +375,13 @@ export default function Home() {
                 ]
             ).map((item, i) => (
               <motion.div key={item.step} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                <div className="card-hover relative p-6 sm:p-8 rounded-2xl bg-[#0a0a0a] border border-white/[0.06] text-center h-full">
-                  <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#39FF14]/20 to-transparent" />
-                  <span className="absolute top-4 right-5 text-5xl font-black text-white/[0.02]">{item.step}</span>
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#39FF14]/[0.06] border border-[#39FF14]/10 mb-5">
-                    <item.icon className="w-6 h-6 text-[#39FF14]" />
+                <div className="card-hover relative p-6 sm:p-8 rounded-2xl bg-white border border-gray-200 shadow-sm text-center h-full">
+                  <span className="absolute top-4 right-5 text-5xl font-black text-[#39FF14]/10">{item.step}</span>
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#39FF14]/[0.1] mb-5">
+                    <item.icon className="w-6 h-6 text-[#22b80a]" />
                   </div>
-                  <h3 className="font-bold mb-2">{item.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  <h3 className="font-bold mb-2 text-[#0a0a0a]">{item.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -404,7 +398,7 @@ export default function Home() {
             <div className="neon-line absolute top-0 left-[15%] right-[15%]" />
             <div className="relative z-10">
               <h2 className="text-3xl sm:text-5xl font-black mb-5 tracking-tight">Ready to order?</h2>
-              <p className="text-gray-500 mb-10 max-w-md mx-auto text-sm leading-relaxed">
+              <p className="text-gray-400 mb-10 max-w-md mx-auto text-sm leading-relaxed">
                 {isDelivery
                   ? 'Premium cannabis delivered anywhere from Santa Barbara to Greater Los Angeles. Free delivery on all orders.'
                   : 'Premium wholesale products shipped anywhere in the US. Free shipping on orders over $500.'}

@@ -33,7 +33,7 @@ export default function Home() {
       <section className="relative min-h-[85vh] sm:min-h-[92vh] flex items-center overflow-hidden mesh-gradient">
         <div className="orb absolute top-[15%] left-[55%] w-[800px] h-[800px] rounded-full bg-[#39FF14]/[0.035] blur-[180px]" />
         <div className="orb absolute top-[65%] left-[15%] w-[600px] h-[600px] rounded-full bg-[#39FF14]/[0.025] blur-[140px]" style={{ animationDelay: '4s' }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050505]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white" />
 
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
@@ -98,7 +98,7 @@ export default function Home() {
                 )}
               </motion.h1>
 
-              <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }} className="text-lg text-gray-400 mb-10 max-w-md leading-relaxed">
+              <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }} className="text-lg text-white/70 mb-10 max-w-md leading-relaxed">
                 {isDelivery
                   ? 'Terpene-curated menus delivered to your door. Santa Barbara to Greater Los Angeles.'
                   : 'Top-shelf flower, vapes, edibles & concentrates at wholesale prices. Ships anywhere in the US.'}
@@ -120,7 +120,7 @@ export default function Home() {
                     <div className="overflow-hidden relative">
                       <div className="flex gap-4 marquee">
                         {[...CITIES, ...CITIES].map((city, i) => (
-                          <span key={i} className="text-[11px] text-gray-600 whitespace-nowrap">{city}</span>
+                          <span key={i} className="text-[11px] text-gray-400 whitespace-nowrap">{city}</span>
                         ))}
                       </div>
                     </div>
@@ -136,14 +136,14 @@ export default function Home() {
               className="hidden lg:flex items-center justify-center relative"
             >
               <div className="absolute inset-0 bg-[#39FF14]/[0.04] rounded-full blur-[120px] scale-75" />
+              <img src="/images/gmo-smalls.jpg" alt="Premium Flower" className="relative z-10 w-[420px] h-[420px] object-contain drop-shadow-[0_0_60px_rgba(57,255,20,0.15)]" />
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* ─── STATS ─── */}
-      <section className="relative border-y border-white/[0.04]">
-        <div className="absolute inset-0 bg-[#050505]" />
+      <section className="relative border-y border-gray-200 bg-white">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {(isDelivery
@@ -166,7 +166,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="py-8 sm:py-10 text-center border-b border-white/[0.04] lg:border-b-0 lg:border-r lg:last:border-r-0"
+                className="py-8 sm:py-10 text-center border-b border-gray-200 lg:border-b-0 lg:border-r lg:last:border-r-0"
               >
                 <div className="text-3xl sm:text-4xl font-black tracking-tight">
                   <span className="gradient-text">{stat.value}</span>
@@ -181,10 +181,10 @@ export default function Home() {
 
       {/* ─── TERPENE PROFILES (delivery) / WHOLESALE PERKS (wholesale) ─── */}
       {isDelivery ? (
-        <section className="py-16 sm:py-28 px-4 relative overflow-hidden bg-[#fafafa]">
+        <section className="py-16 sm:py-28 px-4 relative overflow-hidden bg-white">
           <div className="relative max-w-7xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 sm:mb-16">
-              <span className="text-[11px] font-semibold text-[#39FF14] uppercase tracking-[0.25em]">Find Your Vibe</span>
+              <span className="text-[11px] font-semibold text-[#22b80a] uppercase tracking-[0.25em]">Find Your Vibe</span>
               <h2 className="text-3xl sm:text-5xl font-black mt-4 tracking-tight text-[#0a0a0a]">Shop by Terpene Profile</h2>
               <p className="text-gray-600 mt-4 max-w-lg mx-auto text-sm leading-relaxed">Every product is categorized by its terpene profile so you find exactly the experience you want.</p>
             </motion.div>
@@ -216,10 +216,10 @@ export default function Home() {
           </div>
         </section>
       ) : (
-        <section className="py-16 sm:py-28 px-4 relative overflow-hidden bg-[#fafafa]">
+        <section className="py-16 sm:py-28 px-4 relative overflow-hidden bg-white">
           <div className="relative max-w-7xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 sm:mb-16">
-              <span className="text-[11px] font-semibold text-[#39FF14] uppercase tracking-[0.25em]">Why Wholesale</span>
+              <span className="text-[11px] font-semibold text-[#22b80a] uppercase tracking-[0.25em]">Why Wholesale</span>
               <h2 className="text-3xl sm:text-5xl font-black mt-4 tracking-tight text-[#0a0a0a]">Built for Your Business</h2>
               <p className="text-gray-600 mt-4 max-w-lg mx-auto text-sm leading-relaxed">Tiered pricing, premium products, and fast shipping — everything you need to stock your shelves.</p>
             </motion.div>
@@ -248,15 +248,14 @@ export default function Home() {
       )}
 
       {/* ─── FEATURED ─── */}
-      <section className="py-16 sm:py-28 px-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#070707] to-[#050505]" />
+      <section className="py-16 sm:py-28 px-4 relative bg-white">
         <div className="relative max-w-7xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-end justify-between mb-10 sm:mb-14">
             <div>
-              <span className="text-[11px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Top Picks</span>
-              <h2 className="text-3xl sm:text-4xl font-black mt-3 tracking-tight">Featured Products</h2>
+              <span className="text-[11px] font-semibold text-[#22b80a] uppercase tracking-[0.25em]">Top Picks</span>
+              <h2 className="text-3xl sm:text-4xl font-black mt-3 tracking-tight text-[#0a0a0a]">Featured Products</h2>
             </div>
-            <Link to="/menu" className="hidden sm:inline-flex items-center gap-2 text-sm text-gray-400 font-medium hover:text-[#39FF14] transition-colors group">
+            <Link to="/menu" className="hidden sm:inline-flex items-center gap-2 text-sm text-gray-500 font-medium hover:text-[#22b80a] transition-colors group">
               View All <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </motion.div>
@@ -267,7 +266,7 @@ export default function Home() {
             }
           </div>
           <div className="mt-8 text-center sm:hidden">
-            <Link to="/menu" className="inline-flex items-center gap-2 text-sm text-gray-400 font-medium hover:text-[#39FF14] transition-colors">
+            <Link to="/menu" className="inline-flex items-center gap-2 text-sm text-gray-500 font-medium hover:text-[#22b80a] transition-colors">
               View All Products <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -276,18 +275,17 @@ export default function Home() {
 
       {/* ─── DELIVERY MAP (delivery only) / SHIPPING INFO (wholesale) ─── */}
       {isDelivery ? (
-        <section className="py-16 sm:py-28 px-4 relative overflow-hidden">
-          <div className="orb absolute top-[30%] left-[20%] w-[600px] h-[600px] rounded-full bg-[#39FF14]/[0.02] blur-[150px]" />
+        <section className="py-16 sm:py-28 px-4 relative overflow-hidden bg-white">
           <div className="relative max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                <span className="text-[11px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Delivery Zone</span>
-                <h2 className="text-3xl sm:text-4xl font-black mt-4 mb-6 tracking-tight">
+                <span className="text-[11px] font-semibold text-[#22b80a] uppercase tracking-[0.25em]">Delivery Zone</span>
+                <h2 className="text-3xl sm:text-4xl font-black mt-4 mb-6 tracking-tight text-[#0a0a0a]">
                   100 Miles of
                   <br />
                   <span className="gradient-text">California Coast</span>
                 </h2>
-                <p className="text-gray-400 mb-10 leading-relaxed text-sm">
+                <p className="text-gray-600 mb-10 leading-relaxed text-sm">
                   From Santa Barbara down the coast through Ventura, Malibu, and into the Greater Los Angeles area. Premium cannabis delivered to your door.
                 </p>
 
@@ -298,14 +296,14 @@ export default function Home() {
                     { icon: FlaskConical, label: '100% Lab Tested' },
                     { icon: ShieldCheck, label: '21+ ID Verified' },
                   ].map(item => (
-                    <div key={item.label} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-                      <item.icon className="w-4 h-4 text-[#39FF14] shrink-0" />
-                      <span className="text-xs text-gray-400">{item.label}</span>
+                    <div key={item.label} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-200">
+                      <item.icon className="w-4 h-4 text-[#22b80a] shrink-0" />
+                      <span className="text-xs text-gray-600">{item.label}</span>
                     </div>
                   ))}
                 </div>
 
-                <Link to="/menu" className="group inline-flex items-center gap-2.5 px-8 py-4 bg-[#39FF14] text-black font-bold rounded-xl hover:shadow-[0_0_50px_rgba(57,255,20,0.3)] transition-all duration-500 text-sm">
+                <Link to="/menu" className="group inline-flex items-center gap-2.5 px-8 py-4 bg-[#0a0a0a] text-white font-bold rounded-xl hover:bg-[#1a1a1a] transition-all duration-500 text-sm">
                   Order Now <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
               </motion.div>
@@ -322,15 +320,14 @@ export default function Home() {
           </div>
         </section>
       ) : (
-        <section className="py-16 sm:py-28 px-4 relative overflow-hidden">
-          <div className="orb absolute top-[30%] left-[20%] w-[600px] h-[600px] rounded-full bg-[#39FF14]/[0.02] blur-[150px]" />
+        <section className="py-16 sm:py-28 px-4 relative overflow-hidden bg-white">
           <div className="relative max-w-5xl mx-auto text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <span className="text-[11px] font-semibold text-[#39FF14]/60 uppercase tracking-[0.25em]">Shipping</span>
-              <h2 className="text-3xl sm:text-4xl font-black mt-4 mb-6 tracking-tight">
+              <span className="text-[11px] font-semibold text-[#22b80a] uppercase tracking-[0.25em]">Shipping</span>
+              <h2 className="text-3xl sm:text-4xl font-black mt-4 mb-6 tracking-tight text-[#0a0a0a]">
                 Ships Anywhere in the <span className="gradient-text">United States</span>
               </h2>
-              <p className="text-gray-400 mb-10 max-w-2xl mx-auto text-sm leading-relaxed">
+              <p className="text-gray-600 mb-10 max-w-2xl mx-auto text-sm leading-relaxed">
                 All wholesale orders are shipped discreetly via priority mail. Free shipping on orders over $500. Most orders ship within 1-2 business days.
               </p>
               <div className="grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10">
@@ -339,14 +336,14 @@ export default function Home() {
                   { icon: Truck, value: 'FREE', label: 'Shipping on $500+' },
                   { icon: ShieldCheck, value: 'Discreet', label: 'Packaging' },
                 ].map(item => (
-                  <div key={item.label} className="p-6 rounded-2xl bg-[#0a0a0a] border border-white/[0.06]">
-                    <item.icon className="w-6 h-6 text-[#39FF14] mx-auto mb-3" />
-                    <div className="text-xl font-black text-[#39FF14]">{item.value}</div>
-                    <div className="text-[11px] text-gray-400 uppercase tracking-wider mt-1">{item.label}</div>
+                  <div key={item.label} className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                    <item.icon className="w-6 h-6 text-[#22b80a] mx-auto mb-3" />
+                    <div className="text-xl font-black text-[#0a0a0a]">{item.value}</div>
+                    <div className="text-[11px] text-gray-500 uppercase tracking-wider mt-1">{item.label}</div>
                   </div>
                 ))}
               </div>
-              <Link to="/menu" className="group inline-flex items-center gap-2.5 px-8 py-4 bg-[#39FF14] text-black font-bold rounded-xl hover:shadow-[0_0_50px_rgba(57,255,20,0.3)] transition-all duration-500 text-sm">
+              <Link to="/menu" className="group inline-flex items-center gap-2.5 px-8 py-4 bg-[#0a0a0a] text-white font-bold rounded-xl hover:bg-[#1a1a1a] transition-all duration-500 text-sm">
                 Shop Wholesale <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
               </Link>
             </motion.div>
@@ -355,10 +352,10 @@ export default function Home() {
       )}
 
       {/* ─── HOW IT WORKS ─── */}
-      <section className="py-16 sm:py-28 px-4 relative bg-[#fafafa]">
+      <section className="py-16 sm:py-28 px-4 relative bg-white">
         <div className="relative max-w-5xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 sm:mb-16">
-            <span className="text-[11px] font-semibold text-[#39FF14] uppercase tracking-[0.25em]">Simple Process</span>
+            <span className="text-[11px] font-semibold text-[#22b80a] uppercase tracking-[0.25em]">Simple Process</span>
             <h2 className="text-3xl sm:text-4xl font-black mt-4 tracking-tight text-[#0a0a0a]">How It Works</h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -390,15 +387,13 @@ export default function Home() {
       </section>
 
       {/* ─── CTA ─── */}
-      <section className="py-16 sm:py-28 px-4">
+      <section className="py-16 sm:py-28 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="relative p-8 sm:p-14 lg:p-20 rounded-3xl overflow-hidden text-center">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#39FF14]/[0.06] via-[#0a0a0a] to-[#39FF14]/[0.03]" />
-            <div className="absolute inset-0 border border-[#39FF14]/10 rounded-3xl" />
-            <div className="neon-line absolute top-0 left-[15%] right-[15%]" />
+            <div className="absolute inset-0 bg-[#0a0a0a]" />
             <div className="relative z-10">
-              <h2 className="text-3xl sm:text-5xl font-black mb-5 tracking-tight">Ready to order?</h2>
-              <p className="text-gray-400 mb-10 max-w-md mx-auto text-sm leading-relaxed">
+              <h2 className="text-3xl sm:text-5xl font-black mb-5 tracking-tight text-white">Ready to order?</h2>
+              <p className="text-white/60 mb-10 max-w-md mx-auto text-sm leading-relaxed">
                 {isDelivery
                   ? 'Premium cannabis delivered anywhere from Santa Barbara to Greater Los Angeles. Free delivery on all orders.'
                   : 'Premium wholesale products shipped anywhere in the US. Free shipping on orders over $500.'}

@@ -90,8 +90,17 @@ export default function Checkout() {
         total,
       }
 
-      // Save to Supabase
-      await submitOrder({
+      // Save to localStorage immediately
+      const existing = JSON.parse(localStorage.getItem('wct-orders') || '[]')
+      existing.unshift(order)
+      localStorage.setItem('wct-orders', JSON.stringify(existing))
+
+      // Clear cart and navigate immediately — don't wait on network
+      clearCart()
+      navigate('/confirmation', { state: order })
+
+      // Fire Supabase save + email in background (don't block the user)
+      submitOrder({
         orderNumber: orderId,
         mode: order.mode,
         customerName: form.name,
@@ -106,82 +115,68 @@ export default function Checkout() {
         subtotal: total,
         total,
         items: orderItems,
-      })
+      }).catch(() => {})
 
-      // Also keep in localStorage as backup
-      const existing = JSON.parse(localStorage.getItem('wct-orders') || '[]')
-      existing.unshift(order)
-      localStorage.setItem('wct-orders', JSON.stringify(existing))
+      const itemRows = orderItems.map(i =>
+        `<tr>
+          <td style="padding:10px 8px;border-bottom:1px solid #222">${i.name}</td>
+          <td style="padding:10px 8px;border-bottom:1px solid #222;color:#aaa">${i.detail}</td>
+          <td style="padding:10px 8px;border-bottom:1px solid #222;text-align:center">${i.qty}</td>
+          <td style="padding:10px 8px;border-bottom:1px solid #222;text-align:right;white-space:nowrap">$${i.unitPrice.toFixed(2)}</td>
+          <td style="padding:10px 8px;border-bottom:1px solid #222;text-align:right;font-weight:600;white-space:nowrap">$${i.total.toFixed(2)}</td>
+        </tr>`
+      ).join('')
 
-      // Send order notification via Resend
-      try {
-        const itemRows = orderItems.map(i =>
-          `<tr>
-            <td style="padding:10px 8px;border-bottom:1px solid #222">${i.name}</td>
-            <td style="padding:10px 8px;border-bottom:1px solid #222;color:#aaa">${i.detail}</td>
-            <td style="padding:10px 8px;border-bottom:1px solid #222;text-align:center">${i.qty}</td>
-            <td style="padding:10px 8px;border-bottom:1px solid #222;text-align:right;white-space:nowrap">$${i.unitPrice.toFixed(2)}</td>
-            <td style="padding:10px 8px;border-bottom:1px solid #222;text-align:right;font-weight:600;white-space:nowrap">$${i.total.toFixed(2)}</td>
-          </tr>`
-        ).join('')
+      const deliveryLabel = form.deliveryWindow === 'sameday' ? 'Same Day' : form.deliveryWindow === 'nextday' ? 'Next Day' : 'Flexible'
+      const paymentLabel = form.payment === 'cashapp' ? 'CashApp' : form.payment === 'venmo' ? 'Venmo' : form.payment === 'cash' ? 'Cash on Delivery' : 'Wire / Zelle'
 
-        const deliveryLabel = form.deliveryWindow === 'sameday' ? 'Same Day' : form.deliveryWindow === 'nextday' ? 'Next Day' : 'Flexible'
-        const paymentLabel = form.payment === 'cashapp' ? 'CashApp' : form.payment === 'venmo' ? 'Venmo' : form.payment === 'cash' ? 'Cash on Delivery' : 'Wire / Zelle'
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject: `New Order ${orderId} — ${isDelivery ? 'Delivery' : 'Wholesale'}`,
+          replyTo: form.email,
+          html: `
+            <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;background:#0a0a0a;color:#fff;padding:32px;border-radius:16px">
+              <h1 style="color:#39FF14;margin:0 0 8px">New ${isDelivery ? 'Delivery' : 'Wholesale'} Order</h1>
+              <p style="color:#888;margin:0 0 24px;font-size:14px">${orderId}</p>
 
-        await fetch('/api/send-email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            subject: `New Order ${orderId} — ${isDelivery ? 'Delivery' : 'Wholesale'}`,
-            replyTo: form.email,
-            html: `
-              <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;background:#0a0a0a;color:#fff;padding:32px;border-radius:16px">
-                <h1 style="color:#39FF14;margin:0 0 8px">New ${isDelivery ? 'Delivery' : 'Wholesale'} Order</h1>
-                <p style="color:#888;margin:0 0 24px;font-size:14px">${orderId}</p>
+              <table style="width:100%;margin-bottom:24px;font-size:14px">
+                <tr><td style="color:#888;padding:6px 0;width:120px">Customer</td><td style="padding:6px 0">${form.name}</td></tr>
+                <tr><td style="color:#888;padding:6px 0">Email</td><td style="padding:6px 0">${form.email}</td></tr>
+                <tr><td style="color:#888;padding:6px 0">Phone</td><td style="padding:6px 0">${form.phone}</td></tr>
+                ${form.company ? `<tr><td style="color:#888;padding:6px 0">Company</td><td style="padding:6px 0">${form.company}</td></tr>` : ''}
+                <tr><td style="color:#888;padding:6px 0">Address</td><td style="padding:6px 0">${form.street}, ${form.city}, ${form.state} ${form.zip}</td></tr>
+                <tr><td style="color:#888;padding:6px 0">Payment</td><td style="padding:6px 0">${paymentLabel}</td></tr>
+                ${isDelivery ? `<tr><td style="color:#888;padding:6px 0">Delivery</td><td style="padding:6px 0">${deliveryLabel}</td></tr>` : ''}
+                ${form.notes ? `<tr><td style="color:#888;padding:6px 0">Notes</td><td style="padding:6px 0">${form.notes}</td></tr>` : ''}
+              </table>
 
-                <table style="width:100%;margin-bottom:24px;font-size:14px">
-                  <tr><td style="color:#888;padding:6px 0;width:120px">Customer</td><td style="padding:6px 0">${form.name}</td></tr>
-                  <tr><td style="color:#888;padding:6px 0">Email</td><td style="padding:6px 0">${form.email}</td></tr>
-                  <tr><td style="color:#888;padding:6px 0">Phone</td><td style="padding:6px 0">${form.phone}</td></tr>
-                  ${form.company ? `<tr><td style="color:#888;padding:6px 0">Company</td><td style="padding:6px 0">${form.company}</td></tr>` : ''}
-                  <tr><td style="color:#888;padding:6px 0">Address</td><td style="padding:6px 0">${form.street}, ${form.city}, ${form.state} ${form.zip}</td></tr>
-                  <tr><td style="color:#888;padding:6px 0">Payment</td><td style="padding:6px 0">${paymentLabel}</td></tr>
-                  ${isDelivery ? `<tr><td style="color:#888;padding:6px 0">Delivery</td><td style="padding:6px 0">${deliveryLabel}</td></tr>` : ''}
-                  ${form.notes ? `<tr><td style="color:#888;padding:6px 0">Notes</td><td style="padding:6px 0">${form.notes}</td></tr>` : ''}
+              <div style="border-top:1px solid #333;padding-top:16px">
+                <table style="width:100%;border-collapse:collapse;font-size:14px">
+                  <thead>
+                    <tr style="color:#888;font-size:12px;text-transform:uppercase;letter-spacing:0.5px">
+                      <th style="padding:8px 8px 12px;text-align:left;font-weight:500">Item</th>
+                      <th style="padding:8px 8px 12px;text-align:left;font-weight:500">Size</th>
+                      <th style="padding:8px 8px 12px;text-align:center;font-weight:500">Qty</th>
+                      <th style="padding:8px 8px 12px;text-align:right;font-weight:500">Price</th>
+                      <th style="padding:8px 8px 12px;text-align:right;font-weight:500">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>${itemRows}</tbody>
                 </table>
-
-                <div style="border-top:1px solid #333;padding-top:16px">
-                  <table style="width:100%;border-collapse:collapse;font-size:14px">
-                    <thead>
-                      <tr style="color:#888;font-size:12px;text-transform:uppercase;letter-spacing:0.5px">
-                        <th style="padding:8px 8px 12px;text-align:left;font-weight:500">Item</th>
-                        <th style="padding:8px 8px 12px;text-align:left;font-weight:500">Size</th>
-                        <th style="padding:8px 8px 12px;text-align:center;font-weight:500">Qty</th>
-                        <th style="padding:8px 8px 12px;text-align:right;font-weight:500">Price</th>
-                        <th style="padding:8px 8px 12px;text-align:right;font-weight:500">Total</th>
-                      </tr>
-                    </thead>
-                    <tbody>${itemRows}</tbody>
-                  </table>
-                </div>
-
-                <div style="margin-top:16px;padding-top:16px;border-top:2px solid #39FF14;display:flex;justify-content:space-between;align-items:center">
-                  <span style="color:#888;font-size:14px">Order Total</span>
-                  <span style="font-size:28px;font-weight:bold;color:#39FF14">$${total.toFixed(2)}</span>
-                </div>
               </div>
-            `,
-          }),
-        })
-      } catch {
-        // Email failed — order is still saved locally
-      }
 
-      clearCart()
-      navigate('/confirmation', { state: order })
+              <div style="margin-top:16px;padding-top:16px;border-top:2px solid #39FF14;display:flex;justify-content:space-between;align-items:center">
+                <span style="color:#888;font-size:14px">Order Total</span>
+                <span style="font-size:28px;font-weight:bold;color:#39FF14">$${total.toFixed(2)}</span>
+              </div>
+            </div>
+          `,
+        }),
+      }).catch(() => {})
     } catch {
       setError('Something went wrong. Please try again.')
-    } finally {
       setSubmitting(false)
     }
   }
